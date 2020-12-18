@@ -2,7 +2,6 @@ package swing;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,6 +17,9 @@ import javax.swing.JToggleButton;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Rooms extends JFrame {
 
@@ -31,7 +33,7 @@ public class Rooms extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
+				try {				
 					Rooms frame = new Rooms();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -176,6 +178,27 @@ public class Rooms extends JFrame {
 		btnCustumerList.setBackground(new Color(100, 149, 237));
 		btnCustumerList.setBounds(24, 11, 117, 23);
 		panel_3.add(btnCustumerList);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(476, 54, 160, 20);
+		panelright.add(dateChooser);
+		
+		JDateChooser dateChooser_1 = new JDateChooser();
+		dateChooser_1.setBounds(476, 90, 160, 20);
+		panelright.add(dateChooser_1);
+		
+		JLabel lblNewLabel_1 = new JLabel("check in date");
+		lblNewLabel_1.setBounds(364, 60, 102, 14);
+		panelright.add(lblNewLabel_1);
+		
+		JLabel lblCheckOutDate = new JLabel("check out date");
+		lblCheckOutDate.setBounds(364, 94, 102, 14);
+		panelright.add(lblCheckOutDate);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Any"}));
+		comboBox.setBounds(223, 71, 131, 22);
+		panelright.add(comboBox);
 		
 		
 	}
