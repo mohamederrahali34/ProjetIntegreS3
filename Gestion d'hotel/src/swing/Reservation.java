@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Label;
 import java.awt.Button;
 import javax.swing.JScrollPane;
+import java.awt.Font;
 
 public class Reservation {
 
@@ -35,6 +36,8 @@ public class Reservation {
 	private JTextField txtPrnom;
 	private JTextField textField_2;
 	private JTable table;
+	private JTextField textField_3;
+	private JTextField textField_4;
 
 	/**
 	 * Launch the application.
@@ -64,21 +67,25 @@ public class Reservation {
 	 */
 	private void initialize() {
 		frmReservation = new JFrame();
-		frmReservation.getContentPane().setBackground(Color.WHITE);
+		frmReservation.getContentPane().setBackground(new Color(102, 0, 255));
 		frmReservation.setTitle("Reservation");
-		frmReservation.setBounds(100, 100, 729, 498);
+		frmReservation.setBounds(100, 100, 842, 498);
 		frmReservation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmReservation.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("max(6dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(78dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(107dlu;default):grow"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(78dlu;default):grow"),
+				ColumnSpec.decode("max(80dlu;default):grow"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(109dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
+				ColumnSpec.decode("max(129dlu;default):grow"),},
 			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
@@ -95,44 +102,59 @@ public class Reservation {
 				RowSpec.decode("max(155dlu;default)"),}));
 		
 		Label label = new Label("Reservation");
-		frmReservation.getContentPane().add(label, "3, 2");
+		label.setFont(new Font("Dialog", Font.PLAIN, 15));
+		frmReservation.getContentPane().add(label, "5, 2, right, default");
 		
 		JLabel lblNewLabel = new JLabel("Nom");
-		frmReservation.getContentPane().add(lblNewLabel, "3, 4, right, default");
+		frmReservation.getContentPane().add(lblNewLabel, "5, 4, right, default");
 		
 		textField = new JTextField();
-		frmReservation.getContentPane().add(textField, "5, 4, fill, default");
+		frmReservation.getContentPane().add(textField, "7, 4, fill, default");
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Pr\u00E9nom");
-		frmReservation.getContentPane().add(lblNewLabel_2, "7, 4, right, default");
+		frmReservation.getContentPane().add(lblNewLabel_2, "9, 4, right, default");
 		
 		txtPrnom = new JTextField();
-		frmReservation.getContentPane().add(txtPrnom, "9, 4, fill, default");
+		frmReservation.getContentPane().add(txtPrnom, "11, 4, left, default");
 		txtPrnom.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("CIN");
-		frmReservation.getContentPane().add(lblNewLabel_1, "3, 6, right, default");
+		frmReservation.getContentPane().add(lblNewLabel_1, "5, 6, right, default");
 		
 		textField_1 = new JTextField();
-		frmReservation.getContentPane().add(textField_1, "5, 6, fill, default");
+		frmReservation.getContentPane().add(textField_1, "7, 6, fill, default");
 		textField_1.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("T\u00E9lephone");
-		frmReservation.getContentPane().add(lblNewLabel_3, "7, 6, right, default");
+		frmReservation.getContentPane().add(lblNewLabel_3, "9, 6, right, default");
 		
 		textField_2 = new JTextField();
-		frmReservation.getContentPane().add(textField_2, "9, 6, fill, default");
+		frmReservation.getContentPane().add(textField_2, "11, 6, left, default");
 		textField_2.setColumns(10);
 		
+		JLabel lblNewLabel_4 = new JLabel("Nombre de nuits");
+		frmReservation.getContentPane().add(lblNewLabel_4, "5, 8, right, default");
+		
+		textField_3 = new JTextField();
+		frmReservation.getContentPane().add(textField_3, "7, 8, fill, default");
+		textField_3.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("Nombre de personnes");
+		frmReservation.getContentPane().add(lblNewLabel_5, "9, 8, right, default");
+		
+		textField_4 = new JTextField();
+		frmReservation.getContentPane().add(textField_4, "11, 8, left, default");
+		textField_4.setColumns(10);
+		
 		JButton btnNewButton = new JButton("Valider");
-		frmReservation.getContentPane().add(btnNewButton, "5, 8");
+		frmReservation.getContentPane().add(btnNewButton, "7, 10");
 		
 		JButton btnNewButton_1 = new JButton("Reservation");
-		frmReservation.getContentPane().add(btnNewButton_1, "1, 10");
+		frmReservation.getContentPane().add(btnNewButton_1, "3, 12");
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		frmReservation.getContentPane().add(scrollPane_1, "3, 10, 7, 5, fill, fill");
+		frmReservation.getContentPane().add(scrollPane_1, "5, 12, 7, 5, fill, fill");
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane_1.setViewportView(scrollPane);
@@ -167,10 +189,10 @@ public class Reservation {
 		));
 		
 		JButton btnNewButton_2 = new JButton("Rooms");
-		frmReservation.getContentPane().add(btnNewButton_2, "1, 12");
+		frmReservation.getContentPane().add(btnNewButton_2, "3, 14");
 		
 		JButton btnNewButton_3 = new JButton("Custemer List");
-		frmReservation.getContentPane().add(btnNewButton_3, "1, 14, default, top");
+		frmReservation.getContentPane().add(btnNewButton_3, "3, 16, default, top");
 	}
 
 }
