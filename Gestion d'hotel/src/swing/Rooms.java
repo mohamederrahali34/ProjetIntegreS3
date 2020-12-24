@@ -67,7 +67,7 @@ public class Rooms extends JFrame {
 				{null, null, null, null, null, null, null},
 				{null, null, null, null, null, null, null},
 				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
+				
 				{null, null, null, null, null, null, null},
 				{null, null, null, null, null, null, null},
 				{null, null, null, null, null, null, null},
