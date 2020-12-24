@@ -30,7 +30,7 @@ import java.awt.Font;
 
 public class Reservation {
 
-	private JFrame frmReservation;
+	private JFrame frmReservation;     
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField txtPrnom;
@@ -66,10 +66,9 @@ public class Reservation {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmReservation = new JFrame();
+		frmReservation =  new JFrame();
 		frmReservation.getContentPane().setBackground(new Color(102, 0, 255));
-		frmReservation.setTitle("Reservation");
-		frmReservation.setBounds(100, 100, 842, 498);
+		frmReservation.setBounds(100, 100, 853, 498);
 		frmReservation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmReservation.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("max(6dlu;default)"),
