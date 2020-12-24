@@ -91,7 +91,6 @@ public class Rooms extends JFrame {
 				{null, null, null, null, null, null, null},
 				{null, null, null, null, null, null, null},
 				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
 			},
 			new String[] {
 				"No", "Room No", "Room type", "Cost", "Maximum People", "MaximumExtraBed", "availability"
