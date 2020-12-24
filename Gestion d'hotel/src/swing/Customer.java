@@ -2,6 +2,7 @@ package swing;
 
 
 import javax.swing.JFrame;
+
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
@@ -30,7 +31,6 @@ import javax.swing.border.Border;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Label;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 import java.awt.SystemColor;
 import java.awt.Canvas;
 import java.awt.Button;
