@@ -38,7 +38,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class Customer extends JFrame {
+public class Admin extends JFrame {
 
 	
 	/**
@@ -46,18 +46,14 @@ public class Customer extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField find;
-	private JTable table;
 	private Statement stm ;
 	static int id_exemp ;
-	private JTextField textField;
-	private JTextField textField_1;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Customer frame = new Customer();
+					Admin frame = new Admin();
 					frame.setResizable(false);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -73,7 +69,7 @@ public class Customer extends JFrame {
 	}
 
 	
-	public Customer() {
+	public Admin() {
 		setType(Type.UTILITY);
 		setTitle("Customer");
 		
@@ -90,7 +86,15 @@ public class Customer extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnAfficher = new JButton("Modifier");
+		JButton btnAfficher = new JButton("Gestion des clients");
+		btnAfficher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				Customer c =new Customer();
+				c.setVisible(true);
+				
+			}
+		});
 		btnAfficher.setBounds(10, 175, 174, 56);
 		
 		btnAfficher.setForeground(new Color(255, 255, 224));
@@ -98,14 +102,28 @@ public class Customer extends JFrame {
 		btnAfficher.setBackground(new Color(0, 176, 214));
 		panel.add(btnAfficher);
 		
-		JButton btnAfficher_1 = new JButton("Supprimer");
+		JButton btnAfficher_1 = new JButton("Gestion des reservation");
+		btnAfficher_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+	
+				
+			}
+		});
 		btnAfficher_1.setBounds(10, 236, 174, 54);
 		btnAfficher_1.setForeground(new Color(255, 255, 224));
 		btnAfficher_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAfficher_1.setBackground(new Color(0, 176, 214));
 		panel.add(btnAfficher_1);
 		
-		JButton btnAfficher_2 = new JButton("Retour");
+		JButton btnAfficher_2 = new JButton("Gestions des chambres");
+		btnAfficher_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				Rooms c =new Rooms();
+				c.setVisible(true);
+			}
+		});
 		btnAfficher_2.setBounds(10, 293, 174, 54);
 		btnAfficher_2.setForeground(new Color(255, 255, 224));
 		btnAfficher_2.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -113,7 +131,7 @@ public class Customer extends JFrame {
 		panel.add(btnAfficher_2);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Customer.class.getResource("/images/Icons/Admin-icon.png")));
+		lblNewLabel.setIcon(new ImageIcon(Admin.class.getResource("/images/Icons/Admin-icon.png")));
 		lblNewLabel.setBounds(0, 427, 48, 48);
 		panel.add(lblNewLabel);
 		
@@ -141,62 +159,17 @@ public class Customer extends JFrame {
 		
 		
 		Panel panel_2 = new Panel();
-		panel_2.setBounds(200, 0, 908, 152);
+		panel_2.setBounds(200, 0, 908, 111);
 		panel_2.setBackground(new Color(0, 51, 102));
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
-		
-		find = new JTextField("");
-		
-		find.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				DefaultTableModel dm ;
-				dm=(DefaultTableModel) table.getModel();
-				
-				TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(dm);
-				table.setRowSorter(tr);
-				tr.setRowFilter(RowFilter.regexFilter(find.getText().toString()));
-			}
-		});
-		find.setFont(new Font("Tahoma", Font.BOLD, 12));
-		find.setBounds(31, 81, 153, 37);
-		find.setHorizontalAlignment(JTextField.CENTER);
-		panel_2.add(find);
-		find.setColumns(10);
-		
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField.setColumns(10);
-		textField.setBounds(253, 81, 153, 37);
-		panel_2.add(textField);
-		
-		textField_1 = new JTextField();
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(452, 81, 153, 37);
-		panel_2.add(textField_1);
-		
-		JButton search = new JButton("Search");
-		search.setForeground(new Color(255, 255, 224));
-		search.setFont(new Font("Tahoma", Font.BOLD, 12));
-		search.setBackground(new Color(113, 202, 216));
-		search.setBounds(697, 81, 130, 37);
-		
-		
-	
-		
-
-		panel_2.add(search);
 		
 		Label label_1 = new Label("");
 		label_1.setBackground(new Color(169, 169, 169));
 		label_1.setBounds(0, 52, 911, 2);
 		panel_2.add(label_1);
 		
-		Label label_2 = new Label("Customer List");
+		Label label_2 = new Label("Welcome name");
 		label_2.setForeground(new Color(247, 248, 250));
 		label_2.setFont(new Font("Calibri Light", Font.BOLD, 18));
 		label_2.setBounds(336, 0, 238, 36);
@@ -204,14 +177,14 @@ public class Customer extends JFrame {
 		
 		
 		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(200, 151, 920, 461);
+		panel_4.setBounds(200, 105, 908, 507);
 		contentPane.add(panel_4);
 		panel_4.setLayout(null);
 		
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 0, 883, 505);
-		panel_4.add(scrollPane);
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(Admin.class.getResource("/images/Icons/ciudad-maderas-MXbM1NrRqtI-unsplash (1).jpg")));
+		lblNewLabel_2.setBounds(0, 0, 908, 507);
+		panel_4.add(lblNewLabel_2);
 		
 		
 		Object[][] donnees = {
@@ -252,10 +225,6 @@ public class Customer extends JFrame {
         };
  
         String[] entetes = {"No", "RoomNo", "Name", "DateReservation","NbrDeJour", "DateDebut","DateFin"};
-       
-		
-		table=new JTable(donnees, entetes);
-		scrollPane.setViewportView(table);
 		String st = "hamza";
 		
 		

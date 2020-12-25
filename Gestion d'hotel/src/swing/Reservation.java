@@ -2,6 +2,7 @@ package swing;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import java.awt.ScrollPane;
 import java.awt.BorderLayout;
@@ -16,7 +17,6 @@ import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.CardLayout;
-import net.miginfocom.swing.MigLayout;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
