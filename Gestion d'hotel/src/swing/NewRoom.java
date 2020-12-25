@@ -46,7 +46,7 @@ public class NewRoom extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the frame.tt
 	 */
 	public NewRoom() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,7 +79,7 @@ public class NewRoom extends JFrame {
 		btnSave_1.setForeground(new Color(255, 255, 224));
 		btnSave_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnSave_1.setBackground(new Color(0, 176, 214));
-		btnSave_1.setBounds(563, 498, 230, 54);
+		btnSave_1.setBounds(543, 499, 230, 54);
 		panel.add(btnSave_1);
 		
 		textField_1 = new JTextField("");
