@@ -56,7 +56,7 @@ public class Reservation {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the application.h
 	 */
 	public Reservation() {
 		initialize();
