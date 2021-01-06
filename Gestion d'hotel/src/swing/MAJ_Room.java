@@ -33,7 +33,6 @@ public class MAJ_Room extends JFrame {
 	private JLabel lblNewLabel_5;
 	private JButton btnSauvegarde;
 	private JButton btnReinitialiser;
-	private JButton btnSupprimer;
 	private JComboBox comboBox;
 
 	/**
@@ -76,25 +75,18 @@ public class MAJ_Room extends JFrame {
 		comboBox.setBounds(167, 188, 296, 36);
 		panel.add(comboBox);
 		
-		btnSupprimer = new JButton("Supprimer");
-		btnSupprimer.setBackground(SystemColor.textHighlight);
-		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnSupprimer.setForeground(SystemColor.text);
-		btnSupprimer.setBounds(544, 375, 132, 36);
-		panel.add(btnSupprimer);
-		
 		btnReinitialiser = new JButton("Reinitialiser");
 		btnReinitialiser.setBackground(SystemColor.textHighlight);
 		btnReinitialiser.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnReinitialiser.setForeground(SystemColor.text);
-		btnReinitialiser.setBounds(382, 375, 132, 36);
+		btnReinitialiser.setBounds(530, 387, 132, 36);
 		panel.add(btnReinitialiser);
 		
 		btnSauvegarde = new JButton("Enregistrer");
 		btnSauvegarde.setBackground(SystemColor.textHighlight);
 		btnSauvegarde.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnSauvegarde.setForeground(SystemColor.text);
-		btnSauvegarde.setBounds(215, 375, 132, 36);
+		btnSauvegarde.setBounds(309, 387, 132, 36);
 		panel.add(btnSauvegarde);
 		
 		lblNewLabel_5 = new JLabel("Nombre de personne");
@@ -158,7 +150,7 @@ public class MAJ_Room extends JFrame {
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(MAJ_Room.class.getResource("/images/Icons/alexander-kaunas-Fk9d0cxYqC4-unsplash (1).jpg")));
-		lblNewLabel.setBounds(-11, 0, 1103, 496);
+		lblNewLabel.setBounds(-112, 11, 1103, 496);
 		panel.add(lblNewLabel);
 	}
 }

@@ -38,6 +38,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
 
+import java.sql.*;
+
 
 public class Room extends JFrame {
 
@@ -71,6 +73,22 @@ public class Room extends JFrame {
 
 	
 	public Room() {
+		initialize_Components();
+		connect();
+	}
+	
+	public void  connect() {
+		try{  
+			Class.forName("com.mysql.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/db_gestion_hotel","root","");
+			System.out.println("you are connected to db successfully !");
+		}catch(Exception e){
+			System.out.println("We can not connect to database ! retry !");
+		}
+	}
+	
+	private void initialize_Components() {
+
 		setType(Type.UTILITY);
 		setTitle("Customer");
 		
@@ -142,11 +160,6 @@ public class Room extends JFrame {
 		panel_2.setBackground(new Color(0, 51, 102));
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
-		
-		Label label_1 = new Label("");
-		label_1.setBackground(new Color(169, 169, 169));
-		label_1.setBounds(0, 52, 911, 2);
-		panel_2.add(label_1);
 		
 		Label label_2 = new Label("Room");
 		label_2.setForeground(new Color(247, 248, 250));
@@ -273,9 +286,13 @@ public class Room extends JFrame {
 			}
 		));
 		scrollPane.setViewportView(table);
-		String st = "hamza";
 		
+		Label label_1 = new Label("");
+		scrollPane.setRowHeaderView(label_1);
+		label_1.setBackground(new Color(169, 169, 169));
 		
 		
 	}
+	
+	
 }

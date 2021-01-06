@@ -37,7 +37,7 @@ public class NewRoom extends JFrame {
 				try {
 					NewRoom frame = new NewRoom();
 					frame.setResizable(false);
-					frame.setVisible(true);
+   					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
