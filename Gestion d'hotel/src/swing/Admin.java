@@ -120,7 +120,7 @@ public class Admin extends JFrame {
 		btnAfficher_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				Rooms c =new Rooms();
+				Room c =new Room();
 				c.setVisible(true);
 			}
 		});

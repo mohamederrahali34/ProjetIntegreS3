@@ -91,7 +91,7 @@ public class Customer extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnAfficher = new JButton("Modifier");
-		btnAfficher.setBounds(10, 175, 174, 56);
+		btnAfficher.setBounds(10, 195, 174, 56);
 		
 		btnAfficher.setForeground(new Color(255, 255, 224));
 		btnAfficher.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -99,14 +99,14 @@ public class Customer extends JFrame {
 		panel.add(btnAfficher);
 		
 		JButton btnAfficher_1 = new JButton("Supprimer");
-		btnAfficher_1.setBounds(10, 236, 174, 54);
+		btnAfficher_1.setBounds(10, 262, 174, 54);
 		btnAfficher_1.setForeground(new Color(255, 255, 224));
 		btnAfficher_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAfficher_1.setBackground(new Color(0, 176, 214));
 		panel.add(btnAfficher_1);
 		
 		JButton btnAfficher_2 = new JButton("Retour");
-		btnAfficher_2.setBounds(10, 293, 174, 54);
+		btnAfficher_2.setBounds(10, 327, 174, 54);
 		btnAfficher_2.setForeground(new Color(255, 255, 224));
 		btnAfficher_2.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAfficher_2.setBackground(new Color(0, 176, 214));
@@ -138,6 +138,17 @@ public class Customer extends JFrame {
 		btnOut.setHorizontalAlignment(SwingConstants.LEFT);
 		btnOut.setBounds(39, 509, 125, 48);
 		panel.add(btnOut);
+		
+		JButton btnAfficher_1_1 = new JButton("Ajouter un client");
+		btnAfficher_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAfficher_1_1.setForeground(new Color(255, 255, 224));
+		btnAfficher_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAfficher_1_1.setBackground(new Color(0, 176, 214));
+		btnAfficher_1_1.setBounds(10, 130, 174, 54);
+		panel.add(btnAfficher_1_1);
 		
 		
 		Panel panel_2 = new Panel();

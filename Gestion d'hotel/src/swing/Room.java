@@ -3,6 +3,8 @@ package swing;
 
 import javax.swing.JFrame;
 
+
+
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
@@ -164,32 +166,14 @@ public class Room extends JFrame {
 		comboBox.setBounds(84, 76, 160, 36);
 		panel_2.add(comboBox);
 		
-		JLabel lblNewLabel_3 = new JLabel("Du");
-		lblNewLabel_3.setForeground(Color.WHITE);
-		lblNewLabel_3.setBounds(264, 76, 35, 14);
-		panel_2.add(lblNewLabel_3);
-		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(298, 71, 148, 30);
-		panel_2.add(dateChooser);
-		
-		JLabel lblNewLabel_4 = new JLabel("Au");
-		lblNewLabel_4.setForeground(Color.WHITE);
-		lblNewLabel_4.setBounds(264, 127, 27, 14);
-		panel_2.add(lblNewLabel_4);
-		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(298, 111, 148, 30);
-		panel_2.add(dateChooser_1);
-		
 		JButton btnChercher = new JButton("Chercher");
 		btnChercher.setBackground(SystemColor.textHighlight);
-		btnChercher.setBounds(569, 60, 109, 36);
+		btnChercher.setBounds(482, 76, 109, 36);
 		panel_2.add(btnChercher);
 		
 		JButton btnReinitialiser = new JButton("R\u00E9initialiser");
 		btnReinitialiser.setBackground(SystemColor.textHighlight);
-		btnReinitialiser.setBounds(569, 111, 109, 39);
+		btnReinitialiser.setBounds(314, 75, 109, 39);
 		panel_2.add(btnReinitialiser);
 		
 		
