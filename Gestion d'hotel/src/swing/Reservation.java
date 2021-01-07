@@ -50,8 +50,6 @@ public class Reservation extends JFrame {
 	private JTable table;
 	private Statement stm ;
 	static int id_exemp ;
-	private JTextField textField;
-	private JTextField textField_1;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -106,6 +104,12 @@ public class Reservation extends JFrame {
 		panel.add(btnAfficher_1);
 		
 		JButton btnAfficher_2 = new JButton("Retour");
+		btnAfficher_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new Admin().setVisible(true);
+			}
+		});
 		btnAfficher_2.setBounds(10, 327, 174, 54);
 		btnAfficher_2.setForeground(new Color(255, 255, 224));
 		btnAfficher_2.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -139,15 +143,17 @@ public class Reservation extends JFrame {
 		btnOut.setBounds(39, 509, 125, 48);
 		panel.add(btnOut);
 		
-		JButton btnAfficher_1_1 = new JButton("Ajouter une reservation");
+		JButton btnAfficher_1_1 = new JButton("Ajouter  reservation");
 		btnAfficher_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new AjoutReservation().setVisible(true);
 			}
 		});
 		btnAfficher_1_1.setForeground(new Color(255, 255, 224));
 		btnAfficher_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAfficher_1_1.setBackground(new Color(0, 176, 214));
-		btnAfficher_1_1.setBounds(10, 130, 174, 54);
+		btnAfficher_1_1.setBounds(10, 130, 174, 56);
 		panel.add(btnAfficher_1_1);
 		
 		
@@ -171,24 +177,10 @@ public class Reservation extends JFrame {
 			}
 		});
 		find.setFont(new Font("Tahoma", Font.BOLD, 12));
-		find.setBounds(31, 81, 153, 37);
+		find.setBounds(421, 81, 153, 37);
 		find.setHorizontalAlignment(JTextField.CENTER);
 		panel_2.add(find);
 		find.setColumns(10);
-		
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField.setColumns(10);
-		textField.setBounds(253, 81, 153, 37);
-		panel_2.add(textField);
-		
-		textField_1 = new JTextField();
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(452, 81, 153, 37);
-		panel_2.add(textField_1);
 		
 		JButton search = new JButton("Search");
 		search.setForeground(new Color(255, 255, 224));

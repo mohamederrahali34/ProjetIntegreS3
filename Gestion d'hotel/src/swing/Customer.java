@@ -106,6 +106,12 @@ public class Customer extends JFrame {
 		panel.add(btnAfficher_1);
 		
 		JButton btnAfficher_2 = new JButton("Retour");
+		btnAfficher_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new Admin().setVisible(true);
+			}
+		});
 		btnAfficher_2.setBounds(10, 327, 174, 54);
 		btnAfficher_2.setForeground(new Color(255, 255, 224));
 		btnAfficher_2.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -138,17 +144,6 @@ public class Customer extends JFrame {
 		btnOut.setHorizontalAlignment(SwingConstants.LEFT);
 		btnOut.setBounds(39, 509, 125, 48);
 		panel.add(btnOut);
-		
-		JButton btnAfficher_1_1 = new JButton("Ajouter un client");
-		btnAfficher_1_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnAfficher_1_1.setForeground(new Color(255, 255, 224));
-		btnAfficher_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAfficher_1_1.setBackground(new Color(0, 176, 214));
-		btnAfficher_1_1.setBounds(10, 130, 174, 54);
-		panel.add(btnAfficher_1_1);
 		
 		
 		Panel panel_2 = new Panel();

@@ -106,6 +106,8 @@ public class Admin extends JFrame {
 		btnAfficher_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
+				Reservation r = new Reservation();
+				r.setVisible(true);
 	
 				
 			}

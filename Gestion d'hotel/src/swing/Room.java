@@ -40,6 +40,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
 
+import java.sql.*;
+
 
 public class Room extends JFrame {
 
@@ -73,6 +75,22 @@ public class Room extends JFrame {
 
 	
 	public Room() {
+		initialize_Components();
+		connect();
+	}
+	
+	public void  connect() {
+		try{  
+			Class.forName("com.mysql.jdbc.Driver");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/db_gestion_hotel","root","");
+			System.out.println("you are connected to db successfully !");
+		}catch(Exception e){
+			System.out.println("We can not connect to database ! retry !");
+		}
+	}
+	
+	private void initialize_Components() {
+
 		setType(Type.UTILITY);
 		setTitle("Customer");
 		
@@ -90,6 +108,12 @@ public class Room extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnAfficher = new JButton("Ajouter");
+		btnAfficher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new NewRoom().setVisible(true);
+			}
+		});
 		btnAfficher.setBounds(10, 175, 174, 56);
 		
 		btnAfficher.setForeground(new Color(255, 255, 224));
@@ -98,6 +122,11 @@ public class Room extends JFrame {
 		panel.add(btnAfficher);
 		
 		JButton btnAfficher_1 = new JButton("Modifier");
+		btnAfficher_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new MAJ_Room().setVisible(true);
+			}
+		});
 		btnAfficher_1.setBounds(10, 236, 174, 54);
 		btnAfficher_1.setForeground(new Color(255, 255, 224));
 		btnAfficher_1.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -138,17 +167,25 @@ public class Room extends JFrame {
 		btnOut.setBounds(39, 509, 125, 48);
 		panel.add(btnOut);
 		
+		JButton btnAfficher_2_1 = new JButton("Retour");
+		btnAfficher_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new Admin().setVisible(true);
+			}
+		});
+		btnAfficher_2_1.setForeground(new Color(255, 255, 224));
+		btnAfficher_2_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAfficher_2_1.setBackground(new Color(0, 176, 214));
+		btnAfficher_2_1.setBounds(10, 358, 174, 54);
+		panel.add(btnAfficher_2_1);
+		
 		
 		Panel panel_2 = new Panel();
 		panel_2.setBounds(208, 0, 900, 152);
 		panel_2.setBackground(new Color(0, 51, 102));
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
-		
-		Label label_1 = new Label("");
-		label_1.setBackground(new Color(169, 169, 169));
-		label_1.setBounds(0, 52, 911, 2);
-		panel_2.add(label_1);
 		
 		Label label_2 = new Label("Room");
 		label_2.setForeground(new Color(247, 248, 250));
@@ -257,8 +294,10 @@ public class Room extends JFrame {
 			}
 		));
 		scrollPane.setViewportView(table);
-		String st = "hamza";
 		
+		Label label_1 = new Label("");
+		scrollPane.setRowHeaderView(label_1);
+		label_1.setBackground(new Color(169, 169, 169));
 		
 		
 	}

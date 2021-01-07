@@ -16,6 +16,8 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MAJ_Room extends JFrame {
 
@@ -33,8 +35,8 @@ public class MAJ_Room extends JFrame {
 	private JLabel lblNewLabel_5;
 	private JButton btnSauvegarde;
 	private JButton btnReinitialiser;
-	private JButton btnSupprimer;
 	private JComboBox comboBox;
+	private JButton btnReinitialiser_1;
 
 	/**
 	 * Launch the application.
@@ -76,26 +78,32 @@ public class MAJ_Room extends JFrame {
 		comboBox.setBounds(167, 188, 296, 36);
 		panel.add(comboBox);
 		
-		btnSupprimer = new JButton("Supprimer");
-		btnSupprimer.setBackground(SystemColor.textHighlight);
-		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnSupprimer.setForeground(SystemColor.text);
-		btnSupprimer.setBounds(544, 375, 132, 36);
-		panel.add(btnSupprimer);
-		
 		btnReinitialiser = new JButton("Reinitialiser");
 		btnReinitialiser.setBackground(SystemColor.textHighlight);
 		btnReinitialiser.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnReinitialiser.setForeground(SystemColor.text);
-		btnReinitialiser.setBounds(382, 375, 132, 36);
+		btnReinitialiser.setBounds(475, 387, 132, 36);
 		panel.add(btnReinitialiser);
 		
 		btnSauvegarde = new JButton("Enregistrer");
 		btnSauvegarde.setBackground(SystemColor.textHighlight);
 		btnSauvegarde.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnSauvegarde.setForeground(SystemColor.text);
-		btnSauvegarde.setBounds(215, 375, 132, 36);
+		btnSauvegarde.setBounds(309, 387, 132, 36);
 		panel.add(btnSauvegarde);
+		
+		btnReinitialiser_1 = new JButton("Annuler");
+		btnReinitialiser_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new Room().setVisible(true);
+			}
+		});
+		btnReinitialiser_1.setForeground(Color.WHITE);
+		btnReinitialiser_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnReinitialiser_1.setBackground(SystemColor.textHighlight);
+		btnReinitialiser_1.setBounds(636, 387, 132, 36);
+		panel.add(btnReinitialiser_1);
 		
 		lblNewLabel_5 = new JLabel("Nombre de personne");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -158,7 +166,9 @@ public class MAJ_Room extends JFrame {
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(MAJ_Room.class.getResource("/images/Icons/alexander-kaunas-Fk9d0cxYqC4-unsplash (1).jpg")));
-		lblNewLabel.setBounds(-11, 0, 1103, 496);
+		lblNewLabel.setBounds(-112, 0, 991, 507);
 		panel.add(lblNewLabel);
+		
+		
 	}
 }
