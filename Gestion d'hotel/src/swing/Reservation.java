@@ -81,7 +81,7 @@ public class Reservation extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 198, 598);
+		panel.setBounds(0, 0, 239, 598);
 		panel.setBackground(new Color(244, 244, 244));
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -91,7 +91,7 @@ public class Reservation extends JFrame {
 		btnAfficher.setForeground(new Color(255, 255, 224));
 		btnAfficher.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAfficher.setBackground(new Color(0, 176, 214));
-		btnAfficher.setBounds(10, 175, 174, 56);
+		btnAfficher.setBounds(10, 175, 222, 56);
 		panel.add(btnAfficher);
 		
 		JButton btnAfficher_1 = new JButton("Annuler");
@@ -102,7 +102,7 @@ public class Reservation extends JFrame {
 		btnAfficher_1.setForeground(new Color(255, 255, 224));
 		btnAfficher_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAfficher_1.setBackground(new Color(0, 176, 214));
-		btnAfficher_1.setBounds(10, 236, 174, 54);
+		btnAfficher_1.setBounds(10, 236, 222, 54);
 		panel.add(btnAfficher_1);
 		
 		
@@ -119,13 +119,13 @@ public class Reservation extends JFrame {
 			}
 		});
 		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBounds(10, 294, 174, 56);
+		btnNewButton.setBounds(10, 294, 222, 56);
 		panel.add(btnNewButton);
 		
 		
 		Panel panel_2 = new Panel();
 		panel_2.setFont(new Font("Dialog", Font.ITALIC, 15));
-		panel_2.setBounds(200, 0, 886, 155);
+		panel_2.setBounds(238, 0, 848, 155);
 		panel_2.setBackground(new Color(0, 51, 102));
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
@@ -217,7 +217,7 @@ public class Reservation extends JFrame {
 		contentPane.add(table_2);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(200, 161, 894, 437);
+		scrollPane.setBounds(238, 161, 856, 437);
 		contentPane.add(scrollPane);
 		
 		table_3 = new JTable();
