@@ -1,53 +1,61 @@
 package swing;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import java.awt.ScrollPane;
-import java.awt.BorderLayout;
-import java.awt.Panel;
-import java.awt.GridBagLayout;
-import javax.swing.JTextField;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.CardLayout;
-import net.miginfocom.swing.MigLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import java.awt.Label;
-import java.awt.Button;
-import javax.swing.JScrollPane;
+import java.awt.EventQueue;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.Panel;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
-public class Reservation {
+import javax.swing.*;
 
-	private JFrame frmReservation;     
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField txtPrnom;
-	private JTextField textField_2;
-	private JTable table;
-	private JTextField textField_3;
-	private JTextField textField_4;
+import javax.swing.JTextField;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.border.Border;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
+public class Reservation extends JFrame {
+
+	
 	/**
-	 * Launch the application.
+	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private Statement stm ;
+	static int id_exemp ;
+	private JTable table;
+	private JTable table_1;
+	private JTable table_2;
+	private JTable table_3;
+	private JTextField NoReserv;
+	private JTextField CINReserv;
+	private JTextField Date_Resrv;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Reservation window = new Reservation();
-					window.frmReservation.setVisible(true);
+					Reservation frame = new Reservation();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,143 +63,255 @@ public class Reservation {
 		});
 	}
 
-	/**
-	 * Create the application.h
-	 */
-	public Reservation() {
-		initialize();
+	
+	public int getId_exemplaire() {
+		return id_exemp;
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frmReservation =  new JFrame();
-		frmReservation.getContentPane().setBackground(new Color(102, 0, 255));
-		frmReservation.setBounds(100, 100, 853, 498);
-		frmReservation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmReservation.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("max(6dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(78dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(107dlu;default):grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(80dlu;default):grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(109dlu;default)"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(129dlu;default):grow"),},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(155dlu;default)"),}));
+	
+	public Reservation() {
+		setType(Type.UTILITY);
+		setTitle("Liste des r\u00E9servations\r\n\r\n");
 		
-		Label label = new Label("Reservation");
-		label.setFont(new Font("Dialog", Font.PLAIN, 15));
-		frmReservation.getContentPane().add(label, "5, 2, right, default");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 1102, 637);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Nom");
-		frmReservation.getContentPane().add(lblNewLabel, "5, 4, right, default");
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 198, 598);
+		panel.setBackground(new Color(244, 244, 244));
+		contentPane.add(panel);
+		panel.setLayout(null);
 		
-		textField = new JTextField();
-		frmReservation.getContentPane().add(textField, "7, 4, fill, default");
-		textField.setColumns(10);
+		JButton btnAfficher = new JButton("Modifier");
 		
-		JLabel lblNewLabel_2 = new JLabel("Pr\u00E9nom");
-		frmReservation.getContentPane().add(lblNewLabel_2, "9, 4, right, default");
+		btnAfficher.setForeground(new Color(255, 255, 224));
+		btnAfficher.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAfficher.setBackground(new Color(0, 176, 214));
+		btnAfficher.setBounds(10, 175, 174, 56);
+		panel.add(btnAfficher);
 		
-		txtPrnom = new JTextField();
-		frmReservation.getContentPane().add(txtPrnom, "11, 4, left, default");
-		txtPrnom.setColumns(10);
+		JButton btnAfficher_1 = new JButton("Annuler");
+		btnAfficher_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAfficher_1.setForeground(new Color(255, 255, 224));
+		btnAfficher_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAfficher_1.setBackground(new Color(0, 176, 214));
+		btnAfficher_1.setBounds(10, 236, 174, 54);
+		panel.add(btnAfficher_1);
 		
-		JLabel lblNewLabel_1 = new JLabel("CIN");
-		frmReservation.getContentPane().add(lblNewLabel_1, "5, 6, right, default");
 		
-		textField_1 = new JTextField();
-		frmReservation.getContentPane().add(textField_1, "7, 6, fill, default");
-		textField_1.setColumns(10);
+		Icon icon = new ImageIcon(Reservation.class.getResource("/images/Icons/585e4bf3cb11b227491c339a_a8u_icon.ico"));
+		JLabel lblNewLabel = new JLabel(icon);
 		
-		JLabel lblNewLabel_3 = new JLabel("T\u00E9lephone");
-		frmReservation.getContentPane().add(lblNewLabel_3, "9, 6, right, default");
+		lblNewLabel.setBounds(29, 492, 80, 36);
+		panel.add(lblNewLabel);
 		
-		textField_2 = new JTextField();
-		frmReservation.getContentPane().add(textField_2, "11, 6, left, default");
-		textField_2.setColumns(10);
+		JButton btnNewButton = new JButton("Retour au Menu");
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBounds(10, 294, 174, 56);
+		panel.add(btnNewButton);
 		
-		JLabel lblNewLabel_4 = new JLabel("Nombre de nuits");
-		frmReservation.getContentPane().add(lblNewLabel_4, "5, 8, right, default");
 		
-		textField_3 = new JTextField();
-		frmReservation.getContentPane().add(textField_3, "7, 8, fill, default");
-		textField_3.setColumns(10);
+		Panel panel_2 = new Panel();
+		panel_2.setFont(new Font("Dialog", Font.ITALIC, 15));
+		panel_2.setBounds(200, 0, 886, 155);
+		panel_2.setBackground(new Color(0, 51, 102));
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
 		
-		JLabel lblNewLabel_5 = new JLabel("Nombre de personnes");
-		frmReservation.getContentPane().add(lblNewLabel_5, "9, 8, right, default");
+		JButton search = new JButton("Rechercher"); 
+		search.setForeground(new Color(255, 255, 255));
+		search.setFont(new Font("Tahoma", Font.BOLD, 12));
+		search.setBackground(new Color(113, 202, 216));
+		search.setBounds(627, 63, 130, 37);
 		
-		textField_4 = new JTextField();
-		frmReservation.getContentPane().add(textField_4, "11, 8, left, default");
-		textField_4.setColumns(10);
+
+		panel_2.add(search);
 		
-		JButton btnNewButton = new JButton("Valider");
-		frmReservation.getContentPane().add(btnNewButton, "7, 10");
+		JList list = new JList();
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"No", "No chambre", "Name", "DateReservation", "NbrDeJour", "NbrDeJour", ""};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		list.setBounds(140, 63, 140, -17);
+		panel_2.add(list);
 		
-		JButton btnNewButton_1 = new JButton("Reservation");
-		frmReservation.getContentPane().add(btnNewButton_1, "3, 12");
+		JLabel lblNewLabel_1 = new JLabel("No");
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(140, 38, 44, 14);
+		panel_2.add(lblNewLabel_1);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		frmReservation.getContentPane().add(scrollPane_1, "5, 12, 7, 5, fill, fill");
+		JLabel lblNewLabel_2 = new JLabel("CIN");
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_2.setBounds(140, 73, 46, 14);
+		panel_2.add(lblNewLabel_2);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane_1.setViewportView(scrollPane);
+		JLabel lblNewLabel_3 = new JLabel("Date_R");
+		lblNewLabel_3.setForeground(Color.WHITE);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_3.setBounds(140, 118, 46, 14);
+		panel_2.add(lblNewLabel_3);
+		
+		NoReserv = new JTextField();
+		NoReserv.setBounds(217, 32, 140, 27);
+		panel_2.add(NoReserv);
+		NoReserv.setColumns(10);
+		
+		CINReserv = new JTextField();
+		CINReserv.setBounds(217, 69, 140, 27);
+		panel_2.add(CINReserv);
+		CINReserv.setColumns(10);
+		
+		Date_Resrv = new JTextField();
+		Date_Resrv.setBounds(217, 110, 140, 27);
+		panel_2.add(Date_Resrv);
+		Date_Resrv.setColumns(10);
 		
 		table = new JTable();
-		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
+		table.setBounds(200, 600, 886, -447);
+		contentPane.add(table);
+		
+		table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"1", "Hachimi", "Ahmed", "0637428846", "3", "2"},
-				{"2", "Idrissi", "Anouar", "0674885278", "2", "1"},
-				{"3", "Mosaid", "Mohamed", "0623781348", "1", null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
 			},
 			new String[] {
-				"CIN", "Nom", "Pr\u00E9nom", "T\u00E9lephone", "Nombre de nuits", "Nombre de personnes"
+				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
+			}
+		));
+		table_1.setBounds(347, 370, 1, 1);
+		contentPane.add(table_1);
+		
+		table_2 = new JTable();
+		table_2.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"No", "CIN", "NB_Nuits", "Date_R", "Date_A", "Date_F", "New column"
+			}
+		));
+		table_2.setBounds(425, 207, 1, 1);
+		contentPane.add(table_2);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(200, 161, 894, 437);
+		contentPane.add(scrollPane);
+		
+		table_3 = new JTable();
+		scrollPane.setViewportView(table_3);
+		table_3.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"No", "CIN", "Date_R", "NB_Nuits", "Date_A", "Date_D", "NB_Pers"
 			}
 		));
 		
-		JButton btnNewButton_2 = new JButton("Rooms");
-		frmReservation.getContentPane().add(btnNewButton_2, "3, 14");
 		
-		JButton btnNewButton_3 = new JButton("Custemer List");
-		frmReservation.getContentPane().add(btnNewButton_3, "3, 16, default, top");
+		Object[][] donnees = {
+                {"1", "1", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"2", "2", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"3", "3", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"4", "4", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"5", "5", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"6", "6", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"7", "7", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"8", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"9", "9", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"10", "10", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"11", "11", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"12", "12", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"13", "13", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"14", "14", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"15", "15", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"16", "16", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"17", "17", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"18", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"11", "11", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"12", "12", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"13", "13", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"14", "14", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"15", "15", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"16", "16", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"17", "17", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"18", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"11", "11", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"12", "12", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"13", "13", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"14", "14", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"15", "15", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"16", "16", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"17", "17", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
+                {"18", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"}
+        };
+ 
+        String[] entetes = {"No", "RoomNo", "Name", "DateReservation","NbrDeJour", "DateDebut","DateFin"};
+		String st = "hamza";
+		
+		
+		
 	}
-
 }
