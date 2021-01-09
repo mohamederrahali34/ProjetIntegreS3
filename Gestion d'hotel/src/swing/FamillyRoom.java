@@ -43,7 +43,7 @@ public class FamillyRoom extends JFrame {
 		
 		JLabel lblFamillyRoom = new JLabel("New label");
 		lblFamillyRoom.setIcon(new ImageIcon(FamillyRoom.class.getResource("/images/Icons/test.png")));
-		lblFamillyRoom.setBounds(10, 11, 676, 412);
+		lblFamillyRoom.setBounds(10, 11, 676, 360);
 		contentPane.add(lblFamillyRoom);
 	}
 }
