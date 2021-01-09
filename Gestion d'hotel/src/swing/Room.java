@@ -234,6 +234,15 @@ public class Room extends JFrame {
 		panel_2.add(comboBox);
 		
 		JButton btnChercher = new JButton("Chercher");
+		btnChercher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			table=load_table("libre");
+			JScrollPane scrollPane=new JScrollPane();
+			scrollPane.setViewportView(table);
+			table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); 
+			
+			}
+		});
 		btnChercher.setBackground(SystemColor.textHighlight);
 		btnChercher.setBounds(482, 76, 109, 36);
 		panel_2.add(btnChercher);
@@ -255,13 +264,43 @@ public class Room extends JFrame {
 		panel_4.add(scrollPane);
 		
 		
- 
-        String[] entetes = {"Room No", "Room type", "Cost", "Maximum People", "MaximumExtraBed", "availability"};
+		
+		table=load_table("tout les chambres");
+		
+		scrollPane.setViewportView(table);
+		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); 
+		
+		ListSelectionModel list_slct_model =table.getSelectionModel();
+		 list_slct_model.addListSelectionListener(new ListSelectionListener() {
+			//test
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				int selectedRow=table.getSelectedRow();
+				if(selectedRow !=-1) {
+					btnSupprimer.setEnabled(true);
+					btnModifier.setEnabled(true);
+				}
+			}
+		});		
+		
+		
+		
+		Label label_1 = new Label("");
+		scrollPane.setRowHeaderView(label_1);
+		label_1.setBackground(new Color(169, 169, 169));
+		
+		
+	}
+	public String [][] load_chambres(JTable table,String type) {
+		
+
+        
         String data[][] = null;
 		try {
         Connection con=connect();
         
-        String query = "SELECT * FROM chambres";
+        String query = "SELECT * FROM chambres where etat="+type;
       
         Statement stm = con.createStatement();
         ResultSet res = stm.executeQuery(query);
@@ -285,35 +324,16 @@ public class Room extends JFrame {
 		catch(Exception e) {
 			
 		}
-       
+		
+		return data;
+	}
+	
+	public JTable load_table(String type) {
+
+		String data[][] = load_chambres(table,type);
+		String[] entetes = {"Room No", "Room type", "Cost", "Maximum People", "MaximumExtraBed", "availability"};
 		table=new JTable();
 		table.setModel(new DefaultTableModel(data,entetes));
-		scrollPane.setViewportView(table);
-		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); 
-		
-		
-		
-		ListSelectionModel list_slct_model =table.getSelectionModel();
-		 list_slct_model.addListSelectionListener(new ListSelectionListener() {
-			//test
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				// TODO Auto-generated method stub
-				int selectedRow=table.getSelectedRow();
-				if(selectedRow !=-1) {
-					btnSupprimer.setEnabled(true);
-					btnModifier.setEnabled(true);
-				}
-			}
-		});
-		
-		
-		
-		
-		Label label_1 = new Label("");
-		scrollPane.setRowHeaderView(label_1);
-		label_1.setBackground(new Color(169, 169, 169));
-		
-		
+		return table ;
 	}
 }
