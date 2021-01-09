@@ -1,6 +1,7 @@
 package swing;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,6 +19,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JToggleButton;
 import javax.swing.JSlider;
+
+import javax.swing.JTextPane;
+
 
 public class NewRoom extends JFrame {
 
@@ -150,5 +154,7 @@ public class NewRoom extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(NewRoom.class.getResource("/images/Icons/alexander-kaunas-Fk9d0cxYqC4-unsplash (1).jpg")));
 		lblNewLabel.setBounds(0, 0, 1103, 499);
 		panel.add(lblNewLabel);
+		
+		
 	}
 }
