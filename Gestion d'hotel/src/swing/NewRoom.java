@@ -13,6 +13,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.JTextPane;
 
 public class NewRoom extends JFrame {
 
@@ -60,6 +61,10 @@ public class NewRoom extends JFrame {
 		panel.setLayout(null);
 		panel.setBounds(0, 0, 1102, 611);
 		contentPane.add(panel);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setBounds(420, 198, 101, 110);
+		panel.add(textPane);
 		
 		textField = new JTextField("");
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -121,5 +126,9 @@ public class NewRoom extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(NewRoom.class.getResource("/images/Icons/alexander-kaunas-Fk9d0cxYqC4-unsplash (1).jpg")));
 		lblNewLabel.setBounds(-11, 0, 1103, 600);
 		panel.add(lblNewLabel);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setBounds(420, 198, 101, 110);
+		panel.add(textPane);
 	}
 }
