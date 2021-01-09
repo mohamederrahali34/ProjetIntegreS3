@@ -64,14 +64,10 @@ public class Admin extends JFrame {
 	}
 
 	
-	public int getId_exemplaire() {
-		return id_exemp;
-	}
-
 	
 	public Admin() {
 		setType(Type.UTILITY);
-		setTitle("Customer");
+		setTitle("Page d'accueil");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1102, 637);
@@ -137,7 +133,10 @@ public class Admin extends JFrame {
 		lblNewLabel.setBounds(0, 427, 48, 48);
 		panel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Hamza Moukrim");
+		Login nom=new Login();
+		String user = nom.getNom() + " " + nom.getPrenom(); 
+		
+		JLabel lblNewLabel_1 = new JLabel(user);
 		lblNewLabel_1.setFont(new Font("Modern No. 20", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(55, 427, 164, 71);
 		panel.add(lblNewLabel_1);
@@ -148,6 +147,12 @@ public class Admin extends JFrame {
 		panel.add(label);
 		
 		JButton btnOut = new JButton("Sign Out");
+		btnOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new Login().frmlogin.setVisible(true);
+			}
+		});
 		btnOut.setBackground(new Color(244, 244, 244));
 		btnOut.setFont(new Font("Lucida Sans Typewriter", Font.PLAIN, 18));
 		btnOut.setBorder(null);
@@ -171,10 +176,10 @@ public class Admin extends JFrame {
 		label_1.setBounds(0, 52, 911, 2);
 		panel_2.add(label_1);
 		
-		Label label_2 = new Label("Welcome name");
+		Label label_2 = new Label("Welcome"+" " +user);
 		label_2.setForeground(new Color(247, 248, 250));
 		label_2.setFont(new Font("Calibri Light", Font.BOLD, 18));
-		label_2.setBounds(336, 0, 238, 36);
+		label_2.setBounds(257, 0, 389, 46);
 		panel_2.add(label_2);
 		
 		
@@ -188,46 +193,6 @@ public class Admin extends JFrame {
 		lblNewLabel_2.setBounds(0, 0, 908, 507);
 		panel_4.add(lblNewLabel_2);
 		
-		
-		Object[][] donnees = {
-                {"1", "1", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"2", "2", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"3", "3", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"4", "4", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"5", "5", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"6", "6", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"7", "7", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"8", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"9", "9", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"10", "10", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"11", "11", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"12", "12", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"13", "13", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"14", "14", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"15", "15", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"16", "16", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"17", "17", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"18", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"11", "11", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"12", "12", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"13", "13", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"14", "14", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"15", "15", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"16", "16", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"17", "17", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"18", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"11", "11", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"12", "12", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"13", "13", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"14", "14", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"15", "15", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"16", "16", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"17", "17", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"18", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"}
-        };
- 
-        String[] entetes = {"No", "RoomNo", "Name", "DateReservation","NbrDeJour", "DateDebut","DateFin"};
-		String st = "hamza";
 		
 		
 		

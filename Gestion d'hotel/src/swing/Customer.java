@@ -26,6 +26,9 @@ import javax.swing.JScrollPane;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.border.Border;
 
 import java.awt.event.KeyAdapter;
@@ -36,6 +39,8 @@ import java.awt.Canvas;
 import java.awt.Button;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class Customer extends JFrame {
@@ -74,6 +79,27 @@ public class Customer extends JFrame {
 
 	
 	public Customer() {
+		
+		table=new JTable();
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				
+				try {
+					 DbConnect conn=new DbConnect();
+					stm= conn.getConn().createStatement();
+					 ResultSet rs;
+					 rs=stm.executeQuery("select * from client");  
+					 
+					table.setModel(DbUtils.resultSetToTableModel(rs)); 
+						  
+					  
+					//step5 close the connection object  
+					stm.close();
+					conn.getConn().close();
+				}catch(Exception e1){ JOptionPane.showMessageDialog(null, e1.getMessage());}
+			}
+		});
 		setType(Type.UTILITY);
 		setTitle("Customer");
 		
@@ -220,49 +246,11 @@ public class Customer extends JFrame {
 		panel_4.add(scrollPane);
 		
 		
-		Object[][] donnees = {
-                {"1", "1", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"2", "2", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"3", "3", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"4", "4", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"5", "5", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"6", "6", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"7", "7", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"8", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"9", "9", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"10", "10", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"11", "11", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"12", "12", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"13", "13", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"14", "14", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"15", "15", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"16", "16", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"17", "17", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"18", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"11", "11", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"12", "12", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"13", "13", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"14", "14", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"15", "15", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"16", "16", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"17", "17", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"18", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"11", "11", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"12", "12", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"13", "13", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"14", "14", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"15", "15", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"16", "16", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"17", "17", "Name", "17/12/2020","3","18/12/2020","21/12/2020"},
-                {"18", "8", "Name", "17/12/2020","3","18/12/2020","21/12/2020"}
-        };
- 
-        String[] entetes = {"No", "RoomNo", "Name", "DateReservation","NbrDeJour", "DateDebut","DateFin"};
        
 		
-		table=new JTable(donnees, entetes);
+		
 		scrollPane.setViewportView(table);
-		String st = "hamza";
+		
 		
 		
 		
