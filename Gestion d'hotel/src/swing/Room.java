@@ -42,6 +42,8 @@ import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
 
 import java.sql.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class Room extends JFrame {
@@ -76,6 +78,7 @@ public class Room extends JFrame {
 
 	
 	public Room() {
+		
 		initialize_Components();
 		connect();
 		
