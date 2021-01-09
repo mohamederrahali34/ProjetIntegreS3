@@ -22,7 +22,7 @@ private Connection con ;
 		
 		   }
 	}
-	Connection getConn() {  //getconf
+	Connection getConn() {  //getconfded
 		return con;
 	}
 		  
