@@ -2,6 +2,7 @@ package swing;
 
 import java.awt.BorderLayout;
 
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -24,11 +25,18 @@ import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
+	
+	
+	
+	JFrame frmlogin;
 
 	private JPanel contentPane;
 	private JTextField loginText;
 	private JPasswordField motpasse;
 	private DbConnect conn ;
+	
+	static String nom;
+	static String prenom;
 
 	/**
 	 * Launch the application.
@@ -38,8 +46,8 @@ public class Login extends JFrame {
 			public void run() {
 				try {
 					Login frame = new Login();
-					frame.setResizable(false);
-					frame.setVisible(true);
+					frame.frmlogin.setResizable(false);
+					frame.frmlogin.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,14 +58,26 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	public String getNom() {
+		  return nom;
+	  }
+	  public String getPrenom() {
+		  return prenom;
+	  }
+	  
+	
 	public Login() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setBounds(100, 100, 1082, 622);
+		conn=new DbConnect();
+		frmlogin=new JFrame();
+		frmlogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frmlogin.setBounds(100, 100, 1082, 622);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		frmlogin.setContentPane(contentPane);
+	    contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(-16, 0, 645, 596);
@@ -109,53 +129,47 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				try {
-					if(loginText.getText().equals(null) || motpasse.getText().equals(null) )
+					if(loginText.getText().equals("") || motpasse.getText().equals("") )
 					 {
 				            JOptionPane.showMessageDialog(null, "Certains champs sont vides");
 				        }
 					 else {
 						
 					
-					String user=loginText.getText();
-					String password=motpasse.getText();
+					String user=loginText.getText().toString();
+					String password=motpasse.getText().toString();
 					
 					 ResultSet rs;
 					 PreparedStatement stm=null;
-					 stm=conn.getConn().prepareStatement("select * from admin where username = ? and password = ?   ");  
-					 stm.setString(1, user);
-					 stm.setString(2, password);
+					 stm=conn.getConn().prepareStatement("select * from admin where username = ? and password = ? ");  
+					 stm.setString(1,user);
+					 stm.setString(2,password);
 					 rs=stm.executeQuery();	
 					 
 					 int count=0;
-//					 String admin=new String(); 
 					 while(rs.next()) {
-//						 id=Integer.parseInt(rs.getObject(1).toString());
-//						 nom=rs.getObject(3).toString();
-//						 prenom=rs.getObject(4).toString();
-						 System.out.println(rs.getString(1));
+//						 
+						 nom=rs.getObject(4).toString();
+						 prenom=rs.getObject(5).toString();
+						 
 						 count++;
-//						 admin = rs.getObject(2).toString() ;
 					 }
 					 
 					if(count==0)
 					 JOptionPane.showMessageDialog(null, "user or password wrong ");
 					else {
-//						 if(admin.equals("OUI") ) {
-//							 frmPageDacceuille.setVisible(false);
-//							 new Admin().setVisible(true);
-//							 
-//						 }
-//						 else { 
 						
-							 dispose();
+						 
+						     frmlogin.setVisible(false);
 							 new Admin().setVisible(true); 
+							 stm.close();
+							 conn.getConn().close();
 						 }
 					
 					
 					  
 					//step5 close the connection object  
-					stm.close();
-					conn.getConn().close();
+					
 						 
 					 }
 		 		}catch(Exception e){ System.out.println(e);} 
@@ -167,14 +181,7 @@ public class Login extends JFrame {
 		btnConnecter.setForeground(new Color(161, 164, 185));
 		btnConnecter.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
-		btnConnecter.setBounds(44, 508, 129, 46);
+		btnConnecter.setBounds(44, 508, 274, 46);
 		panel_1.add(btnConnecter);
-		
-		JButton btnCr = new JButton(" Cr\u00E9er un compte");
-		btnCr.setForeground(new Color(161, 164, 185));
-		btnCr.setFont(new Font("Tahoma", Font.BOLD, 18));
-		btnCr.setBackground(new Color(54, 83, 175));
-		btnCr.setBounds(197, 508, 225, 46);
-		panel_1.add(btnCr);
 	}
 }
