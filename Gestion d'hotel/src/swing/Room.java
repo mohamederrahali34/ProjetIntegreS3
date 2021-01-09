@@ -82,7 +82,7 @@ public class Room extends JFrame {
 	public void  connect() {
 		try{  
 			Class.forName("com.mysql.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/db_gestion_hotel","root","");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
 			System.out.println("you are connected to db successfully !");
 		}catch(Exception e){
 			System.out.println("We can not connect to database ! retry !");
