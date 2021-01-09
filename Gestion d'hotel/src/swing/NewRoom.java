@@ -1,6 +1,7 @@
 package swing;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -61,10 +62,6 @@ public class NewRoom extends JFrame {
 		panel.setLayout(null);
 		panel.setBounds(0, 0, 1102, 611);
 		contentPane.add(panel);
-		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(420, 198, 101, 110);
-		panel.add(textPane);
 		
 		textField = new JTextField("");
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -127,8 +124,6 @@ public class NewRoom extends JFrame {
 		lblNewLabel.setBounds(-11, 0, 1103, 600);
 		panel.add(lblNewLabel);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(420, 198, 101, 110);
-		panel.add(textPane);
+		
 	}
 }
