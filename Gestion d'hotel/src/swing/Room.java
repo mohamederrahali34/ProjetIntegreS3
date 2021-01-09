@@ -289,17 +289,18 @@ public class Room extends JFrame {
 		table=new JTable();
 		table.setModel(new DefaultTableModel(data,entetes));
 		scrollPane.setViewportView(table);
-		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); 
 		
 		
-		ListSelectionModel list_slct_model1 =table.getSelectionModel();
-		 list_slct_model1.addListSelectionListener(new ListSelectionListener() {
+		
+		ListSelectionModel list_slct_model =table.getSelectionModel();
+		 list_slct_model.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				// TODO Auto-generated method stub
 				int selectedRow=table.getSelectedRow();
-				if(selectedRow!=-1) {
+				if(selectedRow !=-1) {
 					btnSupprimer.setEnabled(true);
 					btnModifier.setEnabled(true);
 				}
