@@ -295,7 +295,7 @@ public class Room extends JFrame {
 		
 		ListSelectionModel list_slct_model =table.getSelectionModel();
 		 list_slct_model.addListSelectionListener(new ListSelectionListener() {
-			
+			//test
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				// TODO Auto-generated method stub
