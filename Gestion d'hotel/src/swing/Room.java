@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
@@ -17,8 +20,6 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Panel;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 import javax.swing.*;
 
@@ -77,16 +78,19 @@ public class Room extends JFrame {
 	public Room() {
 		initialize_Components();
 		connect();
+		
 	}
 	
-	public void  connect() {
+	public Connection  connect() {
+		Connection con=null;
 		try{  
 			Class.forName("com.mysql.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/gestion_hotel","root","");
 			System.out.println("you are connected to db successfully !");
 		}catch(Exception e){
 			System.out.println("We can not connect to database ! retry !");
 		}
+		return con ;
 	}
 	
 	private void initialize_Components() {
@@ -108,9 +112,11 @@ public class Room extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnAfficher = new JButton("Ajouter");
+		int numRow=0;
 		btnAfficher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
+			
 				new NewRoom().setVisible(true);
 			}
 		});
@@ -121,24 +127,48 @@ public class Room extends JFrame {
 		btnAfficher.setBackground(new Color(0, 176, 214));
 		panel.add(btnAfficher);
 		
-		JButton btnAfficher_1 = new JButton("Modifier");
-		btnAfficher_1.addActionListener(new ActionListener() {
+		JButton btnModifier = new JButton("Modifier");
+		btnModifier.setEnabled(false);
+		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new MAJ_Room().setVisible(true);
 			}
 		});
-		btnAfficher_1.setBounds(10, 236, 174, 54);
-		btnAfficher_1.setForeground(new Color(255, 255, 224));
-		btnAfficher_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAfficher_1.setBackground(new Color(0, 176, 214));
-		panel.add(btnAfficher_1);
+		btnModifier.setBounds(10, 236, 174, 54);
+		btnModifier.setForeground(new Color(255, 255, 224));
+		btnModifier.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnModifier.setBackground(new Color(0, 176, 214));
+		panel.add(btnModifier);
 		
-		JButton btnAfficher_2 = new JButton("Supprimer");
-		btnAfficher_2.setBounds(10, 293, 174, 54);
-		btnAfficher_2.setForeground(new Color(255, 255, 224));
-		btnAfficher_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAfficher_2.setBackground(new Color(0, 176, 214));
-		panel.add(btnAfficher_2);
+		JButton btnSupprimer = new JButton("Supprimer");
+		btnSupprimer.setEnabled(false);
+		btnSupprimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected_row=table.getSelectedRow();
+				String num_chambre=(String) table.getValueAt(selected_row, 0);
+				JOptionPane jOptionPane1 = null;
+				String message="voullez-vous supprimer la chambre "+num_chambre+" ?";
+				int n = jOptionPane1.showConfirmDialog(null,message ,"confirmation", JOptionPane.YES_NO_OPTION);
+				if(n==0) {
+					Connection con =connect(); 
+					try {
+						PreparedStatement stm=con.prepareStatement("Delete from chambres where no_chambre="+num_chambre);
+						stm.execute() ;
+							JOptionPane.showInternalMessageDialog(null, "la chambre "+num_chambre+" a été bien suprimmer !","information", JOptionPane.INFORMATION_MESSAGE);
+						
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+			}
+		});
+		btnSupprimer.setBounds(10, 293, 174, 54);
+		btnSupprimer.setForeground(new Color(255, 255, 224));
+		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnSupprimer.setBackground(new Color(0, 176, 214));
+		panel.add(btnSupprimer);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Room.class.getResource("/images/Icons/Admin-icon.png")));
@@ -225,75 +255,60 @@ public class Room extends JFrame {
 		panel_4.add(scrollPane);
 		
 		
-		Object[][] donnees = {
-				{"1", "101", "Family Room", "2000", "2", "2", "available"},
-				{"2", "102", "Party favor", "8000", "6", "5", ""},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-        };
  
-        String[] entetes = {"No", "Room No", "Room type", "Cost", "Maximum People", "MaximumExtraBed", "availability"};
+        String[] entetes = {"Room No", "Room type", "Cost", "Maximum People", "MaximumExtraBed", "availability"};
+        String data[][] = null;
+		try {
+        Connection con=connect();
+        
+        String query = "SELECT * FROM chambres";
+      
+        Statement stm = con.createStatement();
+        ResultSet res = stm.executeQuery(query);
+         data= new String[10][5];
+      
+        int i = 0;
+        while (res.next()) {
+          int no_chambre = res.getInt("no_chambre");
+          String type_chambre = res.getString("type_chambre");
+          String nb_personnes = res.getString("nb_personnes");
+          String cout = res.getString("cout");
+          String etat = res.getString("etat");
+          data[i][0] = no_chambre+"" ;
+          data[i][1] = type_chambre;
+          data[i][2] = nb_personnes;
+          data[i][3] = cout;
+          data[i][4] = etat;
+          i++;
+        }
+		}
+		catch(Exception e) {
+			
+		}
        
-		
-		table=new JTable(donnees, entetes);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"1", "101", "Family Room", "2000", "2", "available"},
-				{"2", "102", "Party favor", "8000", "", ""},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-			},
-			new String[] {
-				"No", "No du chambre", "Type de chambre", "Cout", "Nombre de personnes", "Etat"
-			}
-		));
+		table=new JTable();
+		table.setModel(new DefaultTableModel(data,entetes));
 		scrollPane.setViewportView(table);
+		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); 
+		
+		
+		
+		ListSelectionModel list_slct_model =table.getSelectionModel();
+		 list_slct_model.addListSelectionListener(new ListSelectionListener() {
+			//test
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				int selectedRow=table.getSelectedRow();
+				if(selectedRow !=-1) {
+					btnSupprimer.setEnabled(true);
+					btnModifier.setEnabled(true);
+				}
+			}
+		});
+		
+		
+		
 		
 		Label label_1 = new Label("");
 		scrollPane.setRowHeaderView(label_1);
