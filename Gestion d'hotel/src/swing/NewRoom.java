@@ -13,20 +13,19 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.SystemColor;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JToggleButton;
+import javax.swing.JSlider;
 
 public class NewRoom extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panel;
-	private JTextField textField;
-	private JButton btnSave;
-	private JButton btnSave_1;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
 	private JLabel lblNewLabel;
+	private JTextField txtCoutEnMad;
+	private JTextField textField_9;
 
 	/**
 	 * Launch the application.
@@ -49,8 +48,9 @@ public class NewRoom extends JFrame {
 	 * Create the frame.tt
 	 */
 	public NewRoom() {
+		setTitle("Enregistrer une chambre");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1091, 635);
+		setBounds(100, 100, 951, 534);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -61,65 +61,94 @@ public class NewRoom extends JFrame {
 		panel.setBounds(0, 0, 1102, 611);
 		contentPane.add(panel);
 		
-		textField = new JTextField("");
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField.setColumns(10);
-		textField.setBounds(171, 84, 153, 37);
-		panel.add(textField);
+		JButton button = new JButton("Enregistrer");
+		button.setForeground(Color.WHITE);
+		button.setFont(new Font("Tahoma", Font.BOLD, 13));
+		button.setBackground(SystemColor.textHighlight);
+		button.setBounds(309, 364, 132, 36);
+		panel.add(button);
 		
-		btnSave = new JButton("Save");
-		btnSave.setForeground(new Color(255, 255, 224));
-		btnSave.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnSave.setBackground(new Color(0, 176, 214));
-		btnSave.setBounds(200, 500, 230, 52);
-		panel.add(btnSave);
+		JButton button_1 = new JButton("Reinitialiser");
+		button_1.setForeground(Color.WHITE);
+		button_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		button_1.setBackground(SystemColor.textHighlight);
+		button_1.setBounds(475, 364, 132, 36);
+		panel.add(button_1);
 		
-		btnSave_1 = new JButton("Save");
-		btnSave_1.setForeground(new Color(255, 255, 224));
-		btnSave_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnSave_1.setBackground(new Color(0, 176, 214));
-		btnSave_1.setBounds(543, 499, 230, 54);
-		panel.add(btnSave_1);
+		JButton button_2 = new JButton("Annuler");
+		button_2.setForeground(Color.WHITE);
+		button_2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		button_2.setBackground(SystemColor.textHighlight);
+		button_2.setBounds(636, 364, 132, 36);
+		panel.add(button_2);
 		
-		textField_1 = new JTextField("");
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(172, 178, 153, 37);
-		panel.add(textField_1);
+		txtCoutEnMad = new JTextField("cout en MAD");
+		txtCoutEnMad.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCoutEnMad.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtCoutEnMad.setColumns(10);
+		txtCoutEnMad.setBounds(601, 155, 256, 36);
+		panel.add(txtCoutEnMad);
 		
-		textField_2 = new JTextField("");
-		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_2.setColumns(10);
-		textField_2.setBounds(172, 290, 153, 37);
-		panel.add(textField_2);
+		JLabel label = new JLabel("Etat");
+		label.setForeground(Color.WHITE);
+		label.setFont(new Font("Tahoma", Font.BOLD, 15));
+		label.setBounds(555, 65, 60, 25);
+		panel.add(label);
 		
-		textField_3 = new JTextField("");
-		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_3.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_3.setColumns(10);
-		textField_3.setBounds(699, 88, 153, 37);
-		panel.add(textField_3);
+		JLabel label_1 = new JLabel("Cout");
+		label_1.setForeground(Color.WHITE);
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		label_1.setBounds(544, 170, 75, 25);
+		panel.add(label_1);
 		
-		textField_4 = new JTextField("");
-		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_4.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_4.setColumns(10);
-		textField_4.setBounds(699, 178, 153, 37);
-		panel.add(textField_4);
+		JLabel label_2 = new JLabel("Nombre de personne");
+		label_2.setForeground(Color.WHITE);
+		label_2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		label_2.setBounds(215, 261, 163, 19);
+		panel.add(label_2);
 		
-		textField_5 = new JTextField("");
-		textField_5.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_5.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_5.setColumns(10);
-		textField_5.setBounds(699, 290, 153, 37);
-		panel.add(textField_5);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"R\u00E9guli\u00E8re", "Familiale", "Suite (luxe)"}));
+		comboBox.setFont(new Font("Tahoma", Font.BOLD, 13));
+		comboBox.setBounds(167, 165, 296, 36);
+		panel.add(comboBox);
+		
+		textField_9 = new JTextField("");
+		textField_9.setHorizontalAlignment(SwingConstants.CENTER);
+		textField_9.setFont(new Font("Tahoma", Font.BOLD, 12));
+		textField_9.setColumns(10);
+		textField_9.setBounds(171, 61, 292, 36);
+		panel.add(textField_9);
+		
+		JLabel label_3 = new JLabel("No de chambre");
+		label_3.setForeground(Color.WHITE);
+		label_3.setFont(new Font("Tahoma", Font.BOLD, 15));
+		label_3.setBackground(Color.BLACK);
+		label_3.setBounds(26, 72, 163, 25);
+		panel.add(label_3);
+		
+		JLabel label_4 = new JLabel("Type de chambre");
+		label_4.setForeground(Color.WHITE);
+		label_4.setFont(new Font("Tahoma", Font.BOLD, 15));
+		label_4.setBounds(10, 162, 679, 25);
+		panel.add(label_4);
+		
+		JSlider slider = new JSlider();
+		slider.setToolTipText("");
+		slider.setValue(1);
+		slider.setMinorTickSpacing(1);
+		slider.setMinimum(1);
+		slider.setMaximum(4);
+		slider.setBounds(407, 254, 200, 26);
+		panel.add(slider);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(625, 65, 183, 36);
+		panel.add(comboBox_1);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(NewRoom.class.getResource("/images/Icons/alexander-kaunas-Fk9d0cxYqC4-unsplash (1).jpg")));
-		lblNewLabel.setBounds(-11, 0, 1103, 600);
+		lblNewLabel.setBounds(0, 0, 1103, 499);
 		panel.add(lblNewLabel);
 	}
 }

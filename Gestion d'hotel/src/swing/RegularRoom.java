@@ -8,6 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JTextArea;
+import java.awt.Font;
+import java.awt.Color;
 
 public class RegularRoom extends JFrame {
 
@@ -32,9 +36,10 @@ public class RegularRoom extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public RegularRoom() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 833, 495);
+		setBounds(100, 100, 844, 495);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -42,8 +47,18 @@ public class RegularRoom extends JFrame {
 		
 		JLabel lblRegularRoom = new JLabel("New label");
 		lblRegularRoom.setIcon(new ImageIcon(Room.class.getResource("/images/Icons/similar.png")));
-		lblRegularRoom.setBounds(0, 0, 790, 456);
+		lblRegularRoom.setBounds(0, 0, 614, 456);
 		contentPane.add(lblRegularRoom);
+		
+		JTextArea txtrDfgdgdfgGjtyyt = new JTextArea();
+		txtrDfgdgdfgGjtyyt.setText("Des chambres modernes \r\net spacieuses qui vous \r\noffrent le confort que \r\nvous recherchez\r\n, \u00E0 prix abordable :\r\n-Deux lits Queen\r\n-Salle de bain compl\u00E8te \r\ndans la chambre incluant s\u00E8che-cheveux\r\n-Bureau\r\n-T\u00E9l\u00E9viseur \u00E0 \u00E9cran plat haute-d\u00E9finition\r\n-R\u00E9frig\u00E9rateur compact\r\n-Cafeti\u00E8re filtre\r\n-Four \u00E0 micro-ondes\r\n-Table ronde et fauteuils");
+		txtrDfgdgdfgGjtyyt.setBounds(624, 117, 204, 273);
+		contentPane.add(txtrDfgdgdfgGjtyyt);
+		
+		JLabel lblNewLabel = new JLabel("LES CHAMBRES R\u00C9GULI\u00C8RES");
+		lblNewLabel.setBackground(Color.PINK);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel.setBounds(622, 52, 195, 54);
+		contentPane.add(lblNewLabel);
 	}
-
 }
