@@ -7,7 +7,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import java.awt.Font;
@@ -21,6 +25,12 @@ import javax.swing.JToggleButton;
 import javax.swing.JSlider;
 
 import javax.swing.JTextPane;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.awt.event.ActionEvent;
 
 
 public class NewRoom extends JFrame {
@@ -29,7 +39,14 @@ public class NewRoom extends JFrame {
 	private JPanel panel;
 	private JLabel lblNewLabel;
 	private JTextField txtCoutEnMad;
-	private JTextField textField_9;
+	private JTextField txtNbreChambre;
+	
+	private JButton btnEnregistrer ;
+	private JButton btnReinitialiser ;
+	private JButton btnAnnuler ;
+	private JComboBox cmbTypeChambre;
+	private JSlider sliderNbrePersonne;
+	private JComboBox cmbEtat;
 
 	/**
 	 * Launch the application.
@@ -65,28 +82,73 @@ public class NewRoom extends JFrame {
 		panel.setBounds(0, 0, 1102, 611);
 		contentPane.add(panel);
 		
-		JButton button = new JButton("Enregistrer");
-		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Tahoma", Font.BOLD, 13));
-		button.setBackground(SystemColor.textHighlight);
-		button.setBounds(309, 364, 132, 36);
-		panel.add(button);
+		btnEnregistrer=new JButton("Enregistrer");
+		btnEnregistrer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Room r=new Room();
+					Connection conn=r.connect();
+					
+					 int no_chambre=Integer.parseInt(txtNbreChambre.getText());
+					 String type_chambre= (String) cmbTypeChambre.getSelectedItem();
+					 int nb_personne=sliderNbrePersonne.getValue();
+					 int etat= cmbEtat.getSelectedIndex();
+					 float cost=Float.parseFloat(txtCoutEnMad.getText());
+					 
+					 
+					 String requete="insert into chambres value("+no_chambre+",'"+type_chambre+"',"+nb_personne+",'"+etat+"',"+cost+")";
+					 // create a Statement from the connection
+					 Statement statement = conn.createStatement();
+					 	
+					 // insert the data
+					
+					 statement.executeUpdate(requete);
+					  
+					 
+					 JOptionPane.showMessageDialog(null,"la chambre "+no_chambre+" a été bien ajoutée !", "Confirmation :",JOptionPane.INFORMATION_MESSAGE);
+						  
+					  
+					//step5 close the connection object  
+					
+					conn.close();
+				}catch(Exception e1){ JOptionPane.showMessageDialog(null, e1.getMessage());}
+			}
+		});
+		btnEnregistrer.setForeground(Color.WHITE);
+		btnEnregistrer.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnEnregistrer.setBackground(SystemColor.textHighlight);
+		btnEnregistrer.setBounds(309, 364, 132, 36);
+		panel.add(btnEnregistrer);
 		
-		JButton button_1 = new JButton("Reinitialiser");
-		button_1.setForeground(Color.WHITE);
-		button_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		button_1.setBackground(SystemColor.textHighlight);
-		button_1.setBounds(475, 364, 132, 36);
-		panel.add(button_1);
+		btnReinitialiser = new JButton("Reinitialiser");
+		btnReinitialiser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 txtNbreChambre.setText("");
+				 cmbTypeChambre.setSelectedIndex(0);
+				 sliderNbrePersonne.setValue(1);
+				 cmbEtat.setSelectedIndex(0);
+				 txtCoutEnMad.setText("");
+			}
+		});
+		btnReinitialiser.setForeground(Color.WHITE);
+		btnReinitialiser.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnReinitialiser.setBackground(SystemColor.textHighlight);
+		btnReinitialiser.setBounds(475, 364, 132, 36);
+		panel.add(btnReinitialiser);
 		
-		JButton button_2 = new JButton("Annuler");
-		button_2.setForeground(Color.WHITE);
-		button_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		button_2.setBackground(SystemColor.textHighlight);
-		button_2.setBounds(636, 364, 132, 36);
-		panel.add(button_2);
+		btnAnnuler = new JButton("Annuler");
+		btnAnnuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
+		btnAnnuler.setForeground(Color.WHITE);
+		btnAnnuler.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnAnnuler.setBackground(SystemColor.textHighlight);
+		btnAnnuler.setBounds(636, 364, 132, 36);
+		panel.add(btnAnnuler);
 		
-		txtCoutEnMad = new JTextField("cout en MAD");
+		txtCoutEnMad = new JTextField("");
 		txtCoutEnMad.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCoutEnMad.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtCoutEnMad.setColumns(10);
@@ -111,18 +173,18 @@ public class NewRoom extends JFrame {
 		label_2.setBounds(215, 261, 163, 19);
 		panel.add(label_2);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"R\u00E9guli\u00E8re", "Familiale", "Suite (luxe)"}));
-		comboBox.setFont(new Font("Tahoma", Font.BOLD, 13));
-		comboBox.setBounds(167, 165, 296, 36);
-		panel.add(comboBox);
+		 cmbTypeChambre = new JComboBox();
+		cmbTypeChambre.setModel(new DefaultComboBoxModel(new String[] {"R\u00E9guli\u00E8re", "Familiale", "Suite (luxe)"}));
+		cmbTypeChambre.setFont(new Font("Tahoma", Font.BOLD, 13));
+		cmbTypeChambre.setBounds(167, 165, 296, 36);
+		panel.add(cmbTypeChambre);
 		
-		textField_9 = new JTextField("");
-		textField_9.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_9.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_9.setColumns(10);
-		textField_9.setBounds(171, 61, 292, 36);
-		panel.add(textField_9);
+		txtNbreChambre = new JTextField("");
+		txtNbreChambre.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNbreChambre.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtNbreChambre.setColumns(10);
+		txtNbreChambre.setBounds(171, 61, 292, 36);
+		panel.add(txtNbreChambre);
 		
 		JLabel label_3 = new JLabel("No de chambre");
 		label_3.setForeground(Color.WHITE);
@@ -137,18 +199,19 @@ public class NewRoom extends JFrame {
 		label_4.setBounds(10, 162, 679, 25);
 		panel.add(label_4);
 		
-		JSlider slider = new JSlider();
-		slider.setToolTipText("");
-		slider.setValue(1);
-		slider.setMinorTickSpacing(1);
-		slider.setMinimum(1);
-		slider.setMaximum(4);
-		slider.setBounds(407, 254, 200, 26);
-		panel.add(slider);
+		sliderNbrePersonne = new JSlider();
+		sliderNbrePersonne.setToolTipText("");
+		sliderNbrePersonne.setValue(1);
+		sliderNbrePersonne.setMinorTickSpacing(1);
+		sliderNbrePersonne.setMinimum(1);
+		sliderNbrePersonne.setMaximum(4);
+		sliderNbrePersonne.setBounds(407, 254, 200, 26);
+		panel.add(sliderNbrePersonne);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(625, 65, 183, 36);
-		panel.add(comboBox_1);
+		 cmbEtat = new JComboBox();
+		 cmbEtat.setModel(new DefaultComboBoxModel(new String[] {"Libre", "Reserver", "Oucuper"}));
+		cmbEtat.setBounds(625, 65, 183, 36);
+		panel.add(cmbEtat);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(NewRoom.class.getResource("/images/Icons/alexander-kaunas-Fk9d0cxYqC4-unsplash (1).jpg")));

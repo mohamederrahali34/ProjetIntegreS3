@@ -41,6 +41,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
 
+import net.proteanit.sql.DbUtils;
+
 import java.sql.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -57,6 +59,7 @@ public class Room extends JFrame {
 	private JTable table;
 	private Statement stm ;
 	static int id_exemp ;
+	static int num_chambre_modifier=-1 ;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -118,6 +121,8 @@ public class Room extends JFrame {
 		int numRow=0;
 		btnAfficher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				
 				dispose();
 			
 				new NewRoom().setVisible(true);
@@ -134,6 +139,8 @@ public class Room extends JFrame {
 		btnModifier.setEnabled(false);
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int selected_row=table.getSelectedRow();
+			num_chambre_modifier=(Integer) table.getValueAt(selected_row, 0);
 				new MAJ_Room().setVisible(true);
 			}
 		});
@@ -232,14 +239,27 @@ public class Room extends JFrame {
 		panel_2.add(lblNewLabel_2);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Libre", "Reserver", "Oucuper", "Toute les chambres"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Libre", "Reserver", "Toute les chambres"}));
 		comboBox.setBounds(84, 76, 160, 36);
 		panel_2.add(comboBox);
 		
 		JButton btnChercher = new JButton("Chercher");
 		btnChercher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			table=load_table("libre");
+				int etat=comboBox.getSelectedIndex();
+				try {
+					Connection conn=connect();
+					stm= conn.createStatement();
+					 ResultSet rs;
+					 rs=stm.executeQuery("select * from chambres where etat="+etat);  
+					 
+					table.setModel(DbUtils.resultSetToTableModel(rs)); 
+						  
+					  
+					//step5 close the connection object  
+					stm.close();
+					conn.close();
+				}catch(Exception e1){ JOptionPane.showMessageDialog(null, e1.getMessage());}
 			JScrollPane scrollPane=new JScrollPane();
 			scrollPane.setViewportView(table);
 			table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); 
@@ -268,7 +288,26 @@ public class Room extends JFrame {
 		
 		
 		
-		table=load_table("tout les chambres");
+		table=new JTable();
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				
+				try {
+					Connection conn=connect();
+					stm= conn.createStatement();
+					 ResultSet rs;
+					 rs=stm.executeQuery("select * from chambres");  
+					 
+					table.setModel(DbUtils.resultSetToTableModel(rs)); 
+						  
+					  
+					//step5 close the connection object  
+					stm.close();
+					conn.close();
+				}catch(Exception e1){ JOptionPane.showMessageDialog(null, e1.getMessage());}
+			}
+		});
 		
 		scrollPane.setViewportView(table);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); 
@@ -295,48 +334,7 @@ public class Room extends JFrame {
 		
 		
 	}
-	public String [][] load_chambres(JTable table,String type) {
-		
-
-        
-        String data[][] = null;
-		try {
-        Connection con=connect();
-        
-        String query = "SELECT * FROM chambres where etat="+type;
-      
-        Statement stm = con.createStatement();
-        ResultSet res = stm.executeQuery(query);
-         data= new String[10][5];
-      
-        int i = 0;
-        while (res.next()) {
-          int no_chambre = res.getInt("no_chambre");
-          String type_chambre = res.getString("type_chambre");
-          String nb_personnes = res.getString("nb_personnes");
-          String cout = res.getString("cout");
-          String etat = res.getString("etat");
-          data[i][0] = no_chambre+"" ;
-          data[i][1] = type_chambre;
-          data[i][2] = nb_personnes;
-          data[i][3] = cout;
-          data[i][4] = etat;
-          i++;
-        }
-		}
-		catch(Exception e) {
-			
-		}
-		
-		return data;
-	}
 	
-	public JTable load_table(String type) {
-
-		String data[][] = load_chambres(table,type);
-		String[] entetes = {"Room No", "Room type", "Cost", "Maximum People", "MaximumExtraBed", "availability"};
-		table=new JTable();
-		table.setModel(new DefaultTableModel(data,entetes));
-		return table ;
-	}
+	
+	
 }
