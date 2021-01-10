@@ -32,7 +32,7 @@ import java.awt.event.KeyEvent;
 
 public class Customer extends JFrame {
 
-	
+	 
 	/**
 	 * 
 	 */
