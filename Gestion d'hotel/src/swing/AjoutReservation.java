@@ -55,9 +55,7 @@ import java.awt.event.WindowEvent;
 public class AjoutReservation extends JFrame {
 
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField nom;
