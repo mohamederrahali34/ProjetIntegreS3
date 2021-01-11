@@ -49,14 +49,13 @@ public class ModifierR extends JFrame {
 	private JTextField txt_nb_personnes;
 	private JDateChooser date_R ;
 	JDateChooser date_A ;
-	JDateChooser date_D;
 	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Customer frame = new Customer();
+					ModifierR frame = new ModifierR();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -83,7 +82,7 @@ public class ModifierR extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		Icon icon = new ImageIcon(Customer.class.getResource("/images/Icons/585e4bf3cb11b227491c339a_a8u_icon.ico"));
+		//Icon icon = new ImageIcon(Customer.class.getResource("/images/Icons/585e4bf3cb11b227491c339a_a8u_icon.ico"));
 		
 		
 		Panel panel_2 = new Panel();
@@ -93,8 +92,8 @@ public class ModifierR extends JFrame {
 		panel_2.setLayout(null);
 		
 		txtCIN = new JTextField();
-		txtCIN.setText("JB12345");
-		txtCIN.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCIN.setText("12345");
+		txtCIN.setHorizontalAlignment(SwingConstants.LEFT);
 		txtCIN.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txtCIN.setColumns(10);
 		txtCIN.setBounds(117, 36, 153, 37);
@@ -109,24 +108,18 @@ try {
 					
 					Room r=new Room();
 					Connection conn=r.connect();
-					
-					
 					String CIN=txtCIN.getText();
-					String date_res=date_R.getDateFormatString();
+					java.sql.Date date_res = new java.sql.Date(date_R.getDate().getTime());
 					int nb_jours=Integer.parseInt(txt_nb_personnes.getText());
-					String date_d=date_D.getDateFormatString();
-					String date_f=date_A.getDateFormatString();
-					 
-					 
+					java.sql.Date date_f = new java.sql.Date(date_A.getDate().getTime());
 					// create the java mysql update preparedstatement
-				      String query = "update reservation set CIN = ?, date_reservation=? , nb_jours= ? , date_debut=? ,date_fin=? where no_chambre = ?";
+				      String query = "update reservation set CIN = ?, date_reservation=? , nb_jours= ? , date_fin=? where no = ?";
 				      java.sql.PreparedStatement preparedStmt =  conn.prepareStatement(query);
 				      preparedStmt.setString(1,CIN);
-				     preparedStmt.setString(2,date_res);
+				      preparedStmt.setString(2,date_res.toString());
 				      preparedStmt.setInt(3, nb_jours);
-				      preparedStmt.setString(4, date_d);
-				      preparedStmt.setString(5, date_f);
-				      preparedStmt.setInt(6,Reservation.No_reservation_modifier);
+				      preparedStmt.setString(4, date_f.toString());
+				      preparedStmt.setInt(5,1);//Reservation.No_reservation_modifier);
 				      // execute the java preparedstatement
 				      preparedStmt.executeUpdate();
 					 
@@ -177,22 +170,17 @@ try {
 		lblNewLabel_5.setBounds(393, 47, 68, 14);
 		panel_2.add(lblNewLabel_5);
 		
-		JLabel lblNewLabel_6 = new JLabel("Date_D");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_6.setBounds(393, 95, 96, 14);
-		panel_2.add(lblNewLabel_6);
-		
 		txt_nb_personnes = new JTextField();
 		txt_nb_personnes.setText("2");
 		txt_nb_personnes.setHorizontalAlignment(SwingConstants.CENTER);
 		txt_nb_personnes.setFont(new Font("Tahoma", Font.BOLD, 12));
 		txt_nb_personnes.setColumns(10);
-		txt_nb_personnes.setBounds(484, 133, 153, 37);
+		txt_nb_personnes.setBounds(484, 96, 153, 37);
 		panel_2.add(txt_nb_personnes);
 		
 		JLabel lblNewLabel_7 = new JLabel("NB_Personnes");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_7.setBounds(393, 144, 96, 14);
+		lblNewLabel_7.setBounds(393, 107, 96, 14);
 		panel_2.add(lblNewLabel_7);
 		
 		date_R = new JDateChooser();
@@ -203,12 +191,8 @@ try {
 		date_A.setBounds(484, 36, 153, 37);
 		panel_2.add(date_A);
 		
-		 date_D = new JDateChooser();
-		date_D.setBounds(484, 84, 153, 37);
-		panel_2.add(date_D);
-		
 		JLabel lblNewLabel_8 = new JLabel("New label");
-		lblNewLabel_8.setIcon(new ImageIcon(ModifierR.class.getResource("/hotele4-triangle.jpg")));
+		lblNewLabel_8.setIcon(new ImageIcon(ModifierR.class.getResource("/images/Icons/hotele4-triangle.jpg")));
 		lblNewLabel_8.setBounds(0, 0, 834, 434);
 		panel_2.add(lblNewLabel_8);
 		

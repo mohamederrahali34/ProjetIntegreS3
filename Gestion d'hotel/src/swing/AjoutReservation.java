@@ -163,7 +163,9 @@ public class AjoutReservation extends JFrame {
 					        String d = sdf.format(date_reservation.getDate());
 					        String f = sd.format(date_fin.getDate());
 					
-				        int no =Integer.parseInt(numRoom.getText().toString());
+				       // int no =Integer.parseInt(numRoom.getText().toString());
+					        int selected_row =table.getSelectedRow();
+					        int no=(int) table.getValueAt(selected_row, 0);
 				        String name=nom.getText().toString();
 				        String pren=prenom.getText().toString();
 				     

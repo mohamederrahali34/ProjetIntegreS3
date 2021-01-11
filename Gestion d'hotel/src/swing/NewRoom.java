@@ -45,9 +45,8 @@ public class NewRoom extends JFrame {
 	private JButton btnReinitialiser ;
 	private JButton btnAnnuler ;
 	private JComboBox cmbTypeChambre;
-	private JSlider sliderNbrePersonne;
 	private JComboBox cmbEtat;
-
+	private JSlider slider;
 	/**
 	 * Launch the application.
 	 */
@@ -70,7 +69,6 @@ public class NewRoom extends JFrame {
 	 */
 	public NewRoom() {
 		setTitle("Enregistrer une chambre");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 951, 534);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -91,7 +89,7 @@ public class NewRoom extends JFrame {
 					
 					 int no_chambre=Integer.parseInt(txtNbreChambre.getText());
 					 String type_chambre= (String) cmbTypeChambre.getSelectedItem();
-					 int nb_personne=sliderNbrePersonne.getValue();
+					 int nb_personne=slider.getValue();
 					 int etat= cmbEtat.getSelectedIndex();
 					 float cost=Float.parseFloat(txtCoutEnMad.getText());
 					 
@@ -125,7 +123,7 @@ public class NewRoom extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				 txtNbreChambre.setText("");
 				 cmbTypeChambre.setSelectedIndex(0);
-				 sliderNbrePersonne.setValue(1);
+				 slider.setValue(1);
 				 cmbEtat.setSelectedIndex(0);
 				 txtCoutEnMad.setText("");
 			}
@@ -199,19 +197,23 @@ public class NewRoom extends JFrame {
 		label_4.setBounds(10, 162, 679, 25);
 		panel.add(label_4);
 		
-		sliderNbrePersonne = new JSlider();
-		sliderNbrePersonne.setToolTipText("");
-		sliderNbrePersonne.setValue(1);
-		sliderNbrePersonne.setMinorTickSpacing(1);
-		sliderNbrePersonne.setMinimum(1);
-		sliderNbrePersonne.setMaximum(4);
-		sliderNbrePersonne.setBounds(407, 254, 200, 26);
-		panel.add(sliderNbrePersonne);
-		
 		 cmbEtat = new JComboBox();
 		 cmbEtat.setModel(new DefaultComboBoxModel(new String[] {"Libre", "Reserver"}));
 		cmbEtat.setBounds(625, 65, 183, 36);
 		panel.add(cmbEtat);
+		
+		JLabel label_5 = new JLabel("1         2            3          4");
+		label_5.setForeground(Color.WHITE);
+		label_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		label_5.setBounds(417, 300, 190, 14);
+		panel.add(label_5);
+		
+		slider = new JSlider();
+		slider.setMinorTickSpacing(1);
+		slider.setMinimum(1);
+		slider.setMaximum(4);
+		slider.setBounds(407, 261, 200, 26);
+		panel.add(slider);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(NewRoom.class.getResource("/images/Icons/alexander-kaunas-Fk9d0cxYqC4-unsplash (1).jpg")));

@@ -65,6 +65,7 @@ public class Room extends JFrame {
 	private Statement stm ;
 	static int id_exemp ;
 	static int num_chambre_modifier=-1 ;
+	private JTextField txtRechercheRapide;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -227,6 +228,39 @@ public class Room extends JFrame {
 		btnAfficher_2_1.setBounds(10, 308, 174, 54);
 		panel.add(btnAfficher_2_1);
 		
+		JButton btnDetailChambre = new JButton("Detail Chambre");
+		btnDetailChambre.setVisible(false);
+		btnDetailChambre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected_row=table.getSelectedRow();
+			 
+				String value=(String)table.getValueAt(selected_row, 1);
+				switch(value) {
+				case "R\u00E9guli\u00E8re" :{
+					RegularRoom regularRoom=new RegularRoom();
+					regularRoom.setVisible(true);
+				break ;
+				}
+				case  "Familiale": {
+					FamillyRoom famillyRoom=new FamillyRoom();
+					famillyRoom.setVisible(true);
+				break ;
+				}
+				case  "Suite (luxe)": {
+					RoomLuxe roomLuxe=new RoomLuxe();
+					roomLuxe.setVisible(true);
+				break ;
+				}
+				
+				}
+			}
+		});
+		btnDetailChambre.setForeground(new Color(255, 255, 224));
+		btnDetailChambre.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnDetailChambre.setBackground(new Color(0, 176, 214));
+		btnDetailChambre.setBounds(10, 65, 174, 56);
+		panel.add(btnDetailChambre);
+		
 		
 		Panel panel_2 = new Panel();
 		panel_2.setBounds(214, 0, 900, 152);
@@ -240,16 +274,26 @@ public class Room extends JFrame {
 		label_2.setBounds(336, 0, 238, 36);
 		panel_2.add(label_2);
 		
-		JLabel lblNewLabel_2 = new JLabel("Etat");
-		lblNewLabel_2.setForeground(Color.WHITE);
-		lblNewLabel_2.setBounds(45, 87, 46, 14);
-		panel_2.add(lblNewLabel_2);
+		JLabel lblRechercheRapide = new JLabel("Recherche rapide");
+		lblRechercheRapide.setForeground(Color.WHITE);
+		lblRechercheRapide.setBounds(53, 82, 169, 25);
+		panel_2.add(lblRechercheRapide);
 		
-		JComboBox cmbEtat = new JComboBox();
-		cmbEtat.setModel(new DefaultComboBoxModel(new String[] {"Libre", "Reserver", "Toute les chambres"}));
-		cmbEtat.setSelectedIndex(2);
-		cmbEtat.setBounds(84, 76, 160, 36);
-		panel_2.add(cmbEtat);
+		txtRechercheRapide = new JTextField();
+		txtRechercheRapide.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				DefaultTableModel dm ;
+				dm=(DefaultTableModel) table.getModel();
+				
+				TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(dm);
+				table.setRowSorter(tr);
+				tr.setRowFilter(RowFilter.regexFilter(txtRechercheRapide.getText().toString()));
+			}
+		});
+		txtRechercheRapide.setBounds(262, 76, 312, 36);
+		panel_2.add(txtRechercheRapide);
+		txtRechercheRapide.setColumns(10);
 		
 		
 		JPanel panel_4 = new JPanel();
@@ -288,27 +332,9 @@ public class Room extends JFrame {
 				table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			}
 		});
-		
-		 
-		
-		
-		
-		JButton btnChercher = new JButton("Chercher");
-		btnChercher.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int etat=cmbEtat.getSelectedIndex();
-				System.out.println(etat);
-				
-				load_chambres(table,etat);
-			
-			}
-		});
 		JScrollPane scrollPane1=new JScrollPane();
 		scrollPane1.setViewportView(table);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		btnChercher.setBackground(SystemColor.textHighlight);
-		btnChercher.setBounds(358, 76, 152, 36);
-		panel_2.add(btnChercher);
 		
 		ListSelectionModel list_slct_model =table.getSelectionModel();
 		 list_slct_model.addListSelectionListener(new ListSelectionListener() {
@@ -320,6 +346,7 @@ public class Room extends JFrame {
 				if(selectedRow !=-1) {
 					btnSupprimer.setEnabled(true);
 					btnModifier.setEnabled(true);
+					btnDetailChambre.setVisible(true);
 				}
 			}
 		});		

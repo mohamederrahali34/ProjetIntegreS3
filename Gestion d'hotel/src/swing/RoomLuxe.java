@@ -36,6 +36,7 @@ public class RoomLuxe extends JFrame {
 	 * Create the frame.
 	 */
 	public RoomLuxe() {
+		setResizable(false);
 		setBackground(Color.PINK);
 		setTitle("Chambre familiale");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

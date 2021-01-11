@@ -36,9 +36,9 @@ public class FamillyRoom extends JFrame {
 	 * Create the frame.
 	 */
 	public FamillyRoom() {
+		setResizable(false);
 		setBackground(Color.PINK);
 		setTitle("Chambre familiale");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 907, 599);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

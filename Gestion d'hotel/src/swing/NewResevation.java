@@ -34,6 +34,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.SystemColor;
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class NewResevation extends JFrame {
@@ -98,6 +100,10 @@ public class NewResevation extends JFrame {
 		panel_2.add(textField_1);
 		
 		JButton search = new JButton("Enregistrer");
+		search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		search.setForeground(new Color(255, 255, 224));
 		search.setFont(new Font("Tahoma", Font.BOLD, 12));
 		search.setBackground(new Color(113, 202, 216));
