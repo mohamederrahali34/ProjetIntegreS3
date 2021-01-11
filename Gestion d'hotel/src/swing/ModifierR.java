@@ -70,36 +70,18 @@ public class ModifierR extends JFrame {
 		setTitle("Modifier");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 910, 474);
+		setBounds(100, 100, 841, 474);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 252, 435);
-		panel.setBackground(new Color(244, 244, 244));
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JButton btnAfficher = new JButton("Listes des r\u00E9servations");
-		
-		btnAfficher.setForeground(new Color(255, 255, 224));
-		btnAfficher.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAfficher.setBackground(new Color(0, 176, 214));
-		btnAfficher.setBounds(10, 175, 232, 56);
-		panel.add(btnAfficher);
-		
 		
 		Icon icon = new ImageIcon(Customer.class.getResource("/images/Icons/585e4bf3cb11b227491c339a_a8u_icon.ico"));
-		JLabel lblNewLabel = new JLabel(icon);
-		
-		lblNewLabel.setBounds(29, 492, 80, 36);
-		panel.add(lblNewLabel);
 		
 		
 		Panel panel_2 = new Panel();
-		panel_2.setBounds(252, 0, 642, 477);
+		panel_2.setBounds(0, 0, 894, 477);
 		panel_2.setBackground(Color.WHITE);    
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
@@ -206,7 +188,7 @@ public class ModifierR extends JFrame {
 		
 		JLabel lblNewLabel_8 = new JLabel("New label");
 		lblNewLabel_8.setIcon(new ImageIcon(ModifierR.class.getResource("/hotele4-triangle.jpg")));
-		lblNewLabel_8.setBounds(0, -12, 642, 465);
+		lblNewLabel_8.setBounds(0, 0, 834, 434);
 		panel_2.add(lblNewLabel_8);
 		
 		

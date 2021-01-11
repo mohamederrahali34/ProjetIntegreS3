@@ -73,36 +73,18 @@ public class NewResevation extends JFrame {
 		setTitle("Nouvelle R\u00E9servation");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 901, 468);
+		setBounds(100, 100, 841, 474);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 230, 467);
-		panel.setBackground(new Color(244, 244, 244));
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JButton btnAfficher = new JButton("Liste des R\u00E9servations");
-		
-		btnAfficher.setForeground(new Color(255, 255, 224));
-		btnAfficher.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAfficher.setBackground(new Color(0, 176, 214));
-		btnAfficher.setBounds(10, 184, 210, 56);
-		panel.add(btnAfficher);
-		
 		
 		Icon icon = new ImageIcon(Customer.class.getResource("/images/Icons/585e4bf3cb11b227491c339a_a8u_icon.ico"));
-		JLabel lblNewLabel = new JLabel(icon);
-		
-		lblNewLabel.setBounds(29, 492, 80, 36);
-		panel.add(lblNewLabel);
 		
 		
 		Panel panel_2 = new Panel();
-		panel_2.setBounds(236, 0, 658, 457);
+		panel_2.setBounds(0, 0, 894, 457);
 		panel_2.setBackground(Color.WHITE);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
@@ -180,7 +162,7 @@ public class NewResevation extends JFrame {
 		
 		JLabel lblNewLabel_10 = new JLabel("New label");
 		lblNewLabel_10.setIcon(new ImageIcon(NewResevation.class.getResource("/hotele4-triangle.jpg")));
-		lblNewLabel_10.setBounds(0, 0, 658, 432);
+		lblNewLabel_10.setBounds(0, 0, 884, 432);
 		panel_2.add(lblNewLabel_10);
 		
 		
