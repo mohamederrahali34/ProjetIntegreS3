@@ -1,13 +1,12 @@
 package swing;
 
 
-<<<<<<< HEAD
+
 import javax.swing.JFrame;
 
 
+
 import javax.swing.JPanel;
-=======
->>>>>>> branch 'main' of https://github.com/mohamederrahali34/ProjetIntegreS3.git
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.Cursor;
