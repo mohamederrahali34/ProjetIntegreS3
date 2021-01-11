@@ -1,13 +1,14 @@
 package swing;
 
-import java.awt.BorderLayout;
+
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.mysql.jdbc.PreparedStatement;
+
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.Hashtable;
 import java.awt.event.ActionEvent;
 import javax.swing.JSlider;
 
@@ -40,8 +42,8 @@ public class MAJ_Room extends JFrame {
 	private JButton btnReinitialiser;
 	private JComboBox cmbTypeChambre;
 	private JButton btnReinitialiser_1;
-	private JSlider sliderNbrePersonne;
 	private JComboBox cmbEtat;
+	private JSlider slider ;
 
 	/**
 	 * Launch the application.
@@ -63,6 +65,7 @@ public class MAJ_Room extends JFrame {
 	/**
 	 * Create the frame.tt
 	 */
+	@SuppressWarnings("deprecation")
 	public MAJ_Room() {
 		setTitle("Modifier la chambre");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,16 +103,16 @@ public class MAJ_Room extends JFrame {
 					
 					
 					 String type_chambre= (String) cmbTypeChambre.getSelectedItem();
-					 int nb_personnes=sliderNbrePersonne.getValue();
+					 int nb_personnes=slider.getValue();
 					 int etat= cmbEtat.getSelectedIndex();
 					 float cout=Float.parseFloat(txtCout.getText());
 					 
 					 
 					// create the java mysql update preparedstatement
 				      String query = "update chambres set type_chambre = ?, nb_personnes=? , etat= ? , cout=? where no_chambre = ?";
-				      PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
+				      java.sql.PreparedStatement preparedStmt =  conn.prepareStatement(query);
 				      preparedStmt.setString(1,type_chambre);
-				      preparedStmt.setInt(2,nb_personnes);
+				    //  preparedStmt.setInt(2,nb_personnes);
 				      preparedStmt.setInt(3, etat);
 				      preparedStmt.setFloat(4, cout);
 				      preparedStmt.setInt(5,Room.num_chambre_modifier);
@@ -150,6 +153,9 @@ public class MAJ_Room extends JFrame {
 		lblNewLabel_5.setForeground(Color.WHITE);
 		lblNewLabel_5.setBounds(79, 163, 163, 19);
 		panel.add(lblNewLabel_5);
+ 
+        
+        
 		
 		lblNewLabel_4 = new JLabel("Etat");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -175,22 +181,34 @@ public class MAJ_Room extends JFrame {
 		txtCout.setColumns(10);
 		txtCout.setBounds(601, 145, 226, 36);
 		panel.add(txtCout);
-		
-		sliderNbrePersonne = new JSlider();
-		sliderNbrePersonne.setValue(1);
-		sliderNbrePersonne.setToolTipText("");
-		sliderNbrePersonne.setMinorTickSpacing(1);
-		sliderNbrePersonne.setMinimum(1);
-		sliderNbrePersonne.setMaximum(4);
-		sliderNbrePersonne.setBounds(252, 160, 200, 26);
-		panel.add(sliderNbrePersonne);
+		//Create the label table
+		Hashtable labelTable = new Hashtable();
+		labelTable.put( 0, new JLabel("Stop") );
+		labelTable.put( 4/10, new JLabel("Slow") );
+		labelTable.put( 10, new JLabel("Fast") );
 		
 		 cmbEtat = new JComboBox();
 		cmbEtat.setModel(new DefaultComboBoxModel(new String[] {"Libre", "Reserver"}));
 		cmbEtat.setBounds(601, 55, 207, 36);
 		panel.add(cmbEtat);
 		
-		lblNewLabel = new JLabel("");
+		 slider = new JSlider();
+		slider.setMinorTickSpacing(1);
+		slider.setMinimum(1);
+		slider.setMaximum(4);
+		slider.setBounds(265, 156, 200, 26);
+		panel.add(slider);
+		
+		JLabel lblNewLabel_1 = new JLabel("1         2            3          4");
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_1.setLabelFor(lblNewLabel_1);
+		lblNewLabel_1.setBounds(275, 195, 190, 14);
+		panel.add(lblNewLabel_1);
+		
+		lblNewLabel = new JLabel("jsdfhksdhfkshfksef");
+		lblNewLabel.setLabelFor(slider);
+		lblNewLabel.setToolTipText("fdgdg");
 		lblNewLabel.setIcon(new ImageIcon(MAJ_Room.class.getResource("/images/Icons/alexander-kaunas-Fk9d0cxYqC4-unsplash (1).jpg")));
 		lblNewLabel.setBounds(-112, 0, 991, 507);
 		panel.add(lblNewLabel);

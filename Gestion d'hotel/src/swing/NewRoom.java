@@ -209,7 +209,7 @@ public class NewRoom extends JFrame {
 		panel.add(sliderNbrePersonne);
 		
 		 cmbEtat = new JComboBox();
-		 cmbEtat.setModel(new DefaultComboBoxModel(new String[] {"Libre", "Reserver", "Oucuper"}));
+		 cmbEtat.setModel(new DefaultComboBoxModel(new String[] {"Libre", "Reserver"}));
 		cmbEtat.setBounds(625, 65, 183, 36);
 		panel.add(cmbEtat);
 		
