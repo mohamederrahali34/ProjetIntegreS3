@@ -13,7 +13,7 @@ private Connection con ;
 		//step1 load the driver class  
 			Class.forName("com.mysql.jdbc.Driver");
 			 
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3308/hotel?serverTimezone=UTC" ,"root","root");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestion_hotel","root","");
 	        con.setAutoCommit(true);
 	
 		  

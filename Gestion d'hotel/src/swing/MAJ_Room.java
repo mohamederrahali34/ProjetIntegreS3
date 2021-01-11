@@ -112,7 +112,7 @@ public class MAJ_Room extends JFrame {
 				      String query = "update chambres set type_chambre = ?, nb_personnes=? , etat= ? , cout=? where no_chambre = ?";
 				      java.sql.PreparedStatement preparedStmt =  conn.prepareStatement(query);
 				      preparedStmt.setString(1,type_chambre);
-				    //  preparedStmt.setInt(2,nb_personnes);
+				      preparedStmt.setInt(2,nb_personnes);
 				      preparedStmt.setInt(3, etat);
 				      preparedStmt.setFloat(4, cout);
 				      preparedStmt.setInt(5,Room.num_chambre_modifier);

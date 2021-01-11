@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Panel;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -29,6 +30,8 @@ import javax.swing.border.Border;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class ModifierR extends JFrame {
@@ -39,12 +42,15 @@ public class ModifierR extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField NoRm;
 	private Statement stm ;
 	static int id_exemp ;
-	private JTextField CINRm;
-	private JTextField NB_NuitsRm;
-	private JTextField NB_PersonnesRm;
+	private JTextField txtCIN;
+	private JTextField txtNB_Nuits;
+	private JTextField txt_nb_personnes;
+	private JDateChooser date_R ;
+	JDateChooser date_A ;
+	JDateChooser date_D;
+	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -86,35 +92,55 @@ public class ModifierR extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
-		NoRm = new JTextField();
-		NoRm.setText("1");
-		NoRm.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				DefaultTableModel dm ;
-		   		JTable table = null;
-				dm=(DefaultTableModel) table.getModel();
-				
-				TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(dm);
-		 		table.setRowSorter(tr);
-				tr.setRowFilter(RowFilter.regexFilter(NoRm.getText().toString()));
-			}
-		});
-		NoRm.setFont(new Font("Tahoma", Font.BOLD, 12));
-		NoRm.setBounds(120, 36, 153, 37);
-		NoRm.setHorizontalAlignment(JTextField.CENTER);
-		panel_2.add(NoRm);
-		NoRm.setColumns(10);
-		
-		CINRm = new JTextField();
-		CINRm.setText("JB12345");
-		CINRm.setHorizontalAlignment(SwingConstants.CENTER);
-		CINRm.setFont(new Font("Tahoma", Font.BOLD, 12));
-		CINRm.setColumns(10);
-		CINRm.setBounds(120, 84, 153, 37);
-		panel_2.add(CINRm);
+		txtCIN = new JTextField();
+		txtCIN.setText("JB12345");
+		txtCIN.setHorizontalAlignment(SwingConstants.CENTER);
+		txtCIN.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtCIN.setColumns(10);
+		txtCIN.setBounds(117, 36, 153, 37);
+		panel_2.add(txtCIN);
 		
 		JButton search = new JButton("Enregistrer");
+		search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+try {
+					
+					Room r=new Room();
+					Connection conn=r.connect();
+					
+					
+					String CIN=txtCIN.getText();
+					String date_res=date_R.getDateFormatString();
+					int nb_jours=Integer.parseInt(txt_nb_personnes.getText());
+					String date_d=date_D.getDateFormatString();
+					String date_f=date_A.getDateFormatString();
+					 
+					 
+					// create the java mysql update preparedstatement
+				      String query = "update reservation set CIN = ?, date_reservation=? , nb_jours= ? , date_debut=? ,date_fin=? where no_chambre = ?";
+				      java.sql.PreparedStatement preparedStmt =  conn.prepareStatement(query);
+				      preparedStmt.setString(1,CIN);
+				     preparedStmt.setString(2,date_res);
+				      preparedStmt.setInt(3, nb_jours);
+				      preparedStmt.setString(4, date_d);
+				      preparedStmt.setString(5, date_f);
+				      preparedStmt.setInt(6,Reservation.No_reservation_modifier);
+				      // execute the java preparedstatement
+				      preparedStmt.executeUpdate();
+					 
+					 
+					 JOptionPane.showMessageDialog(null,"la reservation "+Reservation.No_reservation_modifier+" a été bien modifier !", "Confirmation :",JOptionPane.INFORMATION_MESSAGE);
+						  
+					  
+					//step5 close the connection object  
+					
+					conn.close();
+				}catch(Exception e1){ JOptionPane.showMessageDialog(null, e1.getMessage());}
+				
+			}
+		});
 		search.setForeground(new Color(255, 255, 224));
 		search.setFont(new Font("Tahoma", Font.BOLD, 12));
 		search.setBackground(new Color(113, 202, 216));
@@ -123,32 +149,27 @@ public class ModifierR extends JFrame {
 
 		panel_2.add(search);
 		
-		NB_NuitsRm = new JTextField();
-		NB_NuitsRm.setText("3");
-		NB_NuitsRm.setHorizontalAlignment(SwingConstants.CENTER);
-		NB_NuitsRm.setFont(new Font("Tahoma", Font.BOLD, 12));
-		NB_NuitsRm.setColumns(10);
-		NB_NuitsRm.setBounds(120, 180, 153, 37);
-		panel_2.add(NB_NuitsRm);
-		
-		JLabel lblNewLabel_1 = new JLabel("No");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(47, 48, 46, 14);
-		panel_2.add(lblNewLabel_1);
+		txtNB_Nuits = new JTextField();
+		txtNB_Nuits.setText("3");
+		txtNB_Nuits.setHorizontalAlignment(SwingConstants.CENTER);
+		txtNB_Nuits.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txtNB_Nuits.setColumns(10);
+		txtNB_Nuits.setBounds(117, 132, 153, 37);
+		panel_2.add(txtNB_Nuits);
 		
 		JLabel lblNewLabel_2 = new JLabel("CIN");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_2.setBounds(47, 96, 46, 14);
+		lblNewLabel_2.setBounds(44, 48, 46, 14);
 		panel_2.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Date_R");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_3.setBounds(47, 144, 46, 14);
+		lblNewLabel_3.setBounds(44, 96, 46, 14);
 		panel_2.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("NB_Nuits");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_4.setBounds(47, 191, 63, 14);
+		lblNewLabel_4.setBounds(44, 143, 63, 14);
 		panel_2.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Date_A");
@@ -161,30 +182,30 @@ public class ModifierR extends JFrame {
 		lblNewLabel_6.setBounds(393, 95, 96, 14);
 		panel_2.add(lblNewLabel_6);
 		
-		NB_PersonnesRm = new JTextField();
-		NB_PersonnesRm.setText("2");
-		NB_PersonnesRm.setHorizontalAlignment(SwingConstants.CENTER);
-		NB_PersonnesRm.setFont(new Font("Tahoma", Font.BOLD, 12));
-		NB_PersonnesRm.setColumns(10);
-		NB_PersonnesRm.setBounds(484, 133, 153, 37);
-		panel_2.add(NB_PersonnesRm);
+		txt_nb_personnes = new JTextField();
+		txt_nb_personnes.setText("2");
+		txt_nb_personnes.setHorizontalAlignment(SwingConstants.CENTER);
+		txt_nb_personnes.setFont(new Font("Tahoma", Font.BOLD, 12));
+		txt_nb_personnes.setColumns(10);
+		txt_nb_personnes.setBounds(484, 133, 153, 37);
+		panel_2.add(txt_nb_personnes);
 		
 		JLabel lblNewLabel_7 = new JLabel("NB_Personnes");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblNewLabel_7.setBounds(393, 144, 96, 14);
 		panel_2.add(lblNewLabel_7);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(120, 132, 153, 37);
-		panel_2.add(dateChooser);
+		date_R = new JDateChooser();
+		date_R.setBounds(117, 84, 153, 37);
+		panel_2.add(date_R);
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(484, 36, 153, 37);
-		panel_2.add(dateChooser_1);
+		 date_A = new JDateChooser();
+		date_A.setBounds(484, 36, 153, 37);
+		panel_2.add(date_A);
 		
-		JDateChooser dateChooser_2 = new JDateChooser();
-		dateChooser_2.setBounds(484, 84, 153, 37);
-		panel_2.add(dateChooser_2);
+		 date_D = new JDateChooser();
+		date_D.setBounds(484, 84, 153, 37);
+		panel_2.add(date_D);
 		
 		JLabel lblNewLabel_8 = new JLabel("New label");
 		lblNewLabel_8.setIcon(new ImageIcon(ModifierR.class.getResource("/hotele4-triangle.jpg")));

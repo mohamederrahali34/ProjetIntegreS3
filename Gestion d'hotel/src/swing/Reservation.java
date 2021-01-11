@@ -56,6 +56,7 @@ public class Reservation extends JFrame {
 	private JTable table;
 	private Statement stm ;
 	static int id_exemp ;
+	public static int No_reservation_modifier=-1;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -114,6 +115,13 @@ public class Reservation extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btnAfficher = new JButton("Modifier");
+		btnAfficher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				No_reservation_modifier=table.getSelectedRow();
+				ModifierR modifierR=new ModifierR();
+				modifierR.setVisible(true);
+			}
+		});
 		btnAfficher.setBounds(10, 195, 174, 56);
 		
 		btnAfficher.setForeground(new Color(255, 255, 224));

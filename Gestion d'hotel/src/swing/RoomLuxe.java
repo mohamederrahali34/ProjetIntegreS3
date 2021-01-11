@@ -12,7 +12,7 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 import java.awt.Font;
 
-public class FamillyRoom extends JFrame {
+public class RoomLuxe extends JFrame {
 
 	private JPanel contentPane;
 
@@ -23,7 +23,7 @@ public class FamillyRoom extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FamillyRoom frame = new FamillyRoom();
+					RoomLuxe frame = new RoomLuxe();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +35,7 @@ public class FamillyRoom extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FamillyRoom() {
+	public RoomLuxe() {
 		setBackground(Color.PINK);
 		setTitle("Chambre familiale");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,21 +45,22 @@ public class FamillyRoom extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblFamillyRoom = new JLabel("New label");
-		lblFamillyRoom.setIcon(new ImageIcon(FamillyRoom.class.getResource("/images/Icons/test.png")));
+		JLabel lblFamillyRoom = new JLabel("");
+		lblFamillyRoom.setIcon(new ImageIcon(RoomLuxe.class.getResource("/images/Icons/luxe.png")));
 		lblFamillyRoom.setBounds(10, 11, 614, 538);
 		contentPane.add(lblFamillyRoom);
 		
 		JTextArea txtrLaChambreDite = new JTextArea();
 		txtrLaChambreDite.setEditable(false);
 		txtrLaChambreDite.setFont(new Font("Yu Gothic", Font.PLAIN, 15));
-		txtrLaChambreDite.setText("La chambre dite familiale \r\nest en fait qu'une chambre \r\ndouble dans laquelle \r\non a ouvert le canap\u00E9 pour \r\navoir un canap\u00E9-lit et ou \r\nun lit enfant tr\u00E8s basique\r\n a \u00E9t\u00E9 coinc\u00E9 entre le lit \r\ndouble et le mur ! La \r\nsalle de bain,  suffisante pour \r\nun couple avec un enfant,\r\n est totalement  insuffisante \r\npour 5 personnes !");
+		txtrLaChambreDite.setText(" les chambres de luxe rappellent \r\ndes appartements ou des petites \r\nsuites, avec des coins salons \r\nconfortables, une t\u00E9l\u00E9vision\r\n \u00E0 \u00E9cran plasma g\u00E9ante et \r\nparfois des \u00E9quipements tels qu'un\r\n jacuzzi dans la salle de bain.\r\n Les suppl\u00E9ments varient\r\n \u00E9norm\u00E9ment d'une offre \u00E0 l'autre.");
 		txtrLaChambreDite.setBounds(634, 109, 247, 331);
 		contentPane.add(txtrLaChambreDite);
 		
-		JLabel lblNewLabel = new JLabel("Chambre familiale");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(665, 48, 156, 41);
+		JLabel lblNewLabel = new JLabel("Chambre luxe");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setForeground(new Color(0, 0, 0));
+		lblNewLabel.setBounds(676, 38, 143, 34);
 		contentPane.add(lblNewLabel);
 	}
 }

@@ -39,6 +39,8 @@ import java.awt.SystemColor;
 import java.awt.Canvas;
 import java.awt.Button;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ActionEvent;
 
 import com.mysql.jdbc.PreparedStatement;
@@ -84,6 +86,7 @@ public class Room extends JFrame {
 
 	
 	public Room() {
+		setResizable(false);
 		
 		initialize_Components();
 		connect();
@@ -131,7 +134,7 @@ public class Room extends JFrame {
 				new NewRoom().setVisible(true);
 			}
 		});
-		btnAfficher.setBounds(10, 175, 174, 56);
+		btnAfficher.setBounds(10, 125, 174, 56);
 		
 		btnAfficher.setForeground(new Color(255, 255, 224));
 		btnAfficher.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -147,7 +150,7 @@ public class Room extends JFrame {
 				new MAJ_Room().setVisible(true);
 			}
 		});
-		btnModifier.setBounds(10, 236, 174, 54);
+		btnModifier.setBounds(10, 186, 174, 54);
 		btnModifier.setForeground(new Color(255, 255, 224));
 		btnModifier.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnModifier.setBackground(new Color(0, 176, 214));
@@ -177,7 +180,7 @@ public class Room extends JFrame {
 				}
 			}
 		});
-		btnSupprimer.setBounds(10, 293, 174, 54);
+		btnSupprimer.setBounds(10, 243, 174, 54);
 		btnSupprimer.setForeground(new Color(255, 255, 224));
 		btnSupprimer.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnSupprimer.setBackground(new Color(0, 176, 214));
@@ -185,12 +188,13 @@ public class Room extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Room.class.getResource("/images/Icons/Admin-icon.png")));
-		lblNewLabel.setBounds(0, 427, 48, 48);
+		lblNewLabel.setBounds(58, 386, 48, 48);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("errahali@gmail.com");
-		lblNewLabel_1.setFont(new Font("Modern No. 20", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(55, 427, 164, 71);
+		lblNewLabel_1.setForeground(new Color(0, 0, 0));
+		lblNewLabel_1.setFont(new Font("Modern No. 20", Font.BOLD, 18));
+		lblNewLabel_1.setBounds(10, 427, 164, 71);
 		panel.add(lblNewLabel_1);
 		
 		Label label = new Label("");
@@ -220,7 +224,7 @@ public class Room extends JFrame {
 		btnAfficher_2_1.setForeground(new Color(255, 255, 224));
 		btnAfficher_2_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAfficher_2_1.setBackground(new Color(0, 176, 214));
-		btnAfficher_2_1.setBounds(10, 358, 174, 54);
+		btnAfficher_2_1.setBounds(10, 308, 174, 54);
 		panel.add(btnAfficher_2_1);
 		
 		
@@ -230,7 +234,7 @@ public class Room extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
-		Label label_2 = new Label("Chambres ");
+		Label label_2 = new Label("Gestion des chambres ");
 		label_2.setForeground(new Color(247, 248, 250));
 		label_2.setFont(new Font("Calibri Light", Font.BOLD, 18));
 		label_2.setBounds(336, 0, 238, 36);
@@ -257,6 +261,7 @@ public class Room extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 0, 883, 505);
 		panel_4.add(scrollPane);
+		
 		
 		
 		
