@@ -235,7 +235,7 @@ public class Reservation extends JFrame {
 		panel_2.add(find);
 		find.setColumns(10);
 		
-		JButton search = new JButton("Search");    //////
+		JButton search = new JButton("Search");    //////df
 		search.setForeground(new Color(255, 255, 224));
 		search.setFont(new Font("Tahoma", Font.BOLD, 12));
 		search.setBackground(new Color(113, 202, 216));
