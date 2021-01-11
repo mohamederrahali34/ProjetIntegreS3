@@ -3,6 +3,7 @@ package swing;
 
 import javax.swing.JFrame;
 
+
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
@@ -15,8 +16,13 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Panel;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import javax.swing.*;
 
@@ -30,6 +36,8 @@ import javax.swing.border.Border;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.Label;
 import java.awt.SystemColor;
 import java.awt.Canvas;
@@ -38,24 +46,27 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
 
+import net.proteanit.sql.DbUtils;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 
 public class AjoutReservation extends JFrame {
 
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField find;
+	private JTextField nom;
 	private JTable table;
 	private Statement stm ;
 	static int id_exemp ;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_6;
+	private JTextField ville;
+	private JTextField tele;
+	private JTextField prenom;
+	private JTextField adresse;
+	private JTextField cin;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -75,9 +86,37 @@ public class AjoutReservation extends JFrame {
 	public int getId_exemplaire() {
 		return id_exemp;
 	}
+	
+	public static java.sql.Date convertUtilDateToSqlDate(java.util.Date date){
+	    if(date != null) {
+	        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+	        return sqlDate;
+	    }
+	    return null;
+	}
 
 	
 	public AjoutReservation() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				
+				try {
+					 DbConnect conn=new DbConnect();
+					 stm= conn.getConn().createStatement();
+					 ResultSet rs;
+					 rs=stm.executeQuery("select no_chambre,type_chambre,nb_personnes,cout from chambres where etat = 0");  
+					 
+					 table.setModel(DbUtils.resultSetToTableModel(rs)); 
+						  
+					  
+					 //step5 close the connection object  
+					 stm.close();
+					 conn.getConn().close();    
+				}catch(Exception e1){ JOptionPane.showMessageDialog(null, e1.getMessage());}
+				
+			}
+		});
 		setType(Type.UTILITY);
 		setTitle("Customer");
 		
@@ -93,8 +132,94 @@ public class AjoutReservation extends JFrame {
 		panel.setBackground(new Color(244, 244, 244));
 		contentPane.add(panel);
 		panel.setLayout(null);
+		Label numRoom = new Label();
+		Label montant = new Label();
 		
+		JDateChooser date_fin = new JDateChooser();
+		JDateChooser date_reservation = new JDateChooser();
 		JButton btnAfficher = new JButton("Reserver");
+		btnAfficher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) { /////ujhgug
+				
+				
+				
+				try{
+					 if( nom.getText().equals("") 
+					     || prenom.getText().equals("") || ville.getText().equals("")
+					     || adresse.getText().equals("") || date_reservation.equals("") || tele.getText().equals("")
+					      ||     cin.equals("") || date_fin.equals("")
+					        
+							 )
+					 {
+				            JOptionPane.showMessageDialog(null, "Certains champs sont vides");
+				        }
+					 else {
+						 
+						 
+						 
+						 
+						 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+						 SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+					        String d = sdf.format(date_reservation.getDate());
+					        String f = sd.format(date_fin.getDate());
+					
+				        int no =Integer.parseInt(numRoom.getText().toString());
+				        String name=nom.getText().toString();
+				        String pren=prenom.getText().toString();
+				     
+				        String city=ville.getText().toString();
+				        String adress=adresse.getText().toString();
+				        String te=tele.getText().toString();
+				        String mont =montant.getText().toString();
+				        int cIn =Integer.parseInt(cin.getText().toString());
+				       
+				     
+				       
+				        
+				
+				        DbConnect conn=new DbConnect() ;
+				        
+						 PreparedStatement stm=null;
+			          	stm=conn.getConn().prepareStatement("INSERT INTO reservation VALUES(?,?,?,?,?)  ");  
+						 
+						
+				         
+						 stm.setInt(1,no);
+						 stm.setInt(2,cIn);
+				         stm.setDate(3,convertUtilDateToSqlDate(date_reservation.getDate()));
+				         
+				         LocalDateTime from = LocalDateTime.ofInstant(date_reservation.getDate().toInstant(), ZoneId.systemDefault());
+				         LocalDateTime to = LocalDateTime.ofInstant(date_fin.getDate().toInstant(), ZoneId.systemDefault());
+
+				         Duration s = Duration.between(from, to);
+				         
+				        stm.setInt(4,(int) s.toDays());
+				        stm.setDate(5,convertUtilDateToSqlDate(date_fin.getDate()));
+				       
+				        
+				        
+//				        stm.setString(7,te);
+//				        stm.setString(8,motpass);
+//				        stm.setString(9,users);
+//				        stm.setString(10,"non");
+//				        stm.executeUpdate();
+				        
+				        stm.close();
+				        conn.getConn().close();
+				        JOptionPane.showMessageDialog(null, "Added") ;
+				        
+				          
+					 }
+				}catch(Exception er)
+				    {
+				        JOptionPane.showMessageDialog(null,er);
+				    }
+				
+				
+				
+				
+			}
+		});
 		btnAfficher.setBounds(335, 429, 174, 56);
 		
 		btnAfficher.setForeground(new Color(255, 255, 224));
@@ -125,11 +250,11 @@ public class AjoutReservation extends JFrame {
 		btnAfficher_1_1.setBounds(102, 430, 153, 54);
 		panel.add(btnAfficher_1_1);
 		
-		find = new JTextField("");
-		find.setBounds(122, 145, 133, 37);
-		panel.add(find);
+		nom = new JTextField("");
+		nom.setBounds(122, 145, 133, 37);
+		panel.add(nom);
 		
-		find.addKeyListener(new KeyAdapter() {
+		nom.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				DefaultTableModel dm ;
@@ -137,47 +262,47 @@ public class AjoutReservation extends JFrame {
 				
 				TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(dm);
 				table.setRowSorter(tr);
-				tr.setRowFilter(RowFilter.regexFilter(find.getText().toString()));
+				tr.setRowFilter(RowFilter.regexFilter(nom.getText().toString()));
 			}
 		});
-		find.setFont(new Font("Tahoma", Font.BOLD, 12));
-		find.setHorizontalAlignment(JTextField.CENTER);
-		find.setColumns(10);
+		nom.setFont(new Font("Tahoma", Font.BOLD, 12));
+		nom.setHorizontalAlignment(JTextField.CENTER);
+		nom.setColumns(10);
 		
-		textField_2 = new JTextField("");
-		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_2.setColumns(10);
-		textField_2.setBounds(436, 136, 133, 37);
-		panel.add(textField_2);
+		ville = new JTextField("");
+		ville.setHorizontalAlignment(SwingConstants.CENTER);
+		ville.setFont(new Font("Tahoma", Font.BOLD, 12));
+		ville.setColumns(10);
+		ville.setBounds(436, 136, 133, 37);
+		panel.add(ville);
 		
-		textField_3 = new JTextField("");
-		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_3.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_3.setColumns(10);
-		textField_3.setBounds(440, 215, 133, 37);
-		panel.add(textField_3);
+		tele = new JTextField("");
+		tele.setHorizontalAlignment(SwingConstants.CENTER);
+		tele.setFont(new Font("Tahoma", Font.BOLD, 12));
+		tele.setColumns(10);
+		tele.setBounds(440, 215, 133, 37);
+		panel.add(tele);
 		
-		textField = new JTextField("");
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField.setColumns(10);
-		textField.setBounds(122, 215, 133, 37);
-		panel.add(textField);
+		prenom = new JTextField("");
+		prenom.setHorizontalAlignment(SwingConstants.CENTER);
+		prenom.setFont(new Font("Tahoma", Font.BOLD, 12));
+		prenom.setColumns(10);
+		prenom.setBounds(122, 215, 133, 37);
+		panel.add(prenom);
 		
-		textField_1 = new JTextField("");
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(122, 285, 133, 37);
-		panel.add(textField_1);
+		adresse = new JTextField("");
+		adresse.setHorizontalAlignment(SwingConstants.CENTER);
+		adresse.setFont(new Font("Tahoma", Font.BOLD, 12));
+		adresse.setColumns(10);
+		adresse.setBounds(122, 285, 133, 37);
+		panel.add(adresse);
 		
-		textField_6 = new JTextField("");
-		textField_6.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_6.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_6.setColumns(10);
-		textField_6.setBounds(122, 349, 133, 37);
-		panel.add(textField_6);
+		cin = new JTextField("");
+		cin.setHorizontalAlignment(SwingConstants.CENTER);
+		cin.setFont(new Font("Tahoma", Font.BOLD, 12));
+		cin.setColumns(10);
+		cin.setBounds(122, 349, 133, 37);
+		panel.add(cin);
 		
 		Label label_2_1_1 = new Label("No de Chambre");
 		label_2_1_1.setForeground(Color.BLACK);
@@ -185,11 +310,11 @@ public class AjoutReservation extends JFrame {
 		label_2_1_1.setBounds(27, 44, 125, 28);
 		panel.add(label_2_1_1);
 		
-		Label label_2_1_1_1 = new Label("500");
-		label_2_1_1_1.setForeground(Color.BLACK);
-		label_2_1_1_1.setFont(new Font("Calibri Light", Font.BOLD, 10));
-		label_2_1_1_1.setBounds(158, 35, 71, 37);
-		panel.add(label_2_1_1_1);
+		
+		numRoom.setForeground(Color.BLACK);
+		numRoom.setFont(new Font("Calibri Light", Font.BOLD, 10));
+		numRoom.setBounds(158, 35, 71, 37);
+		panel.add(numRoom);
 		
 		Label label_2_1_1_2 = new Label("Nom");
 		label_2_1_1_2.setForeground(Color.BLACK);
@@ -239,11 +364,11 @@ public class AjoutReservation extends JFrame {
 		label_2_1_1_2_1_6.setBounds(331, 349, 86, 37);
 		panel.add(label_2_1_1_2_1_6);
 		
-		Label label_2_1_1_1_1 = new Label("500");
-		label_2_1_1_1_1.setForeground(Color.BLACK);
-		label_2_1_1_1_1.setFont(new Font("Calibri Light", Font.BOLD, 10));
-		label_2_1_1_1_1.setBounds(432, 51, 71, 37);
-		panel.add(label_2_1_1_1_1);
+		Label montant1 = new Label();
+		montant1.setForeground(Color.BLACK);
+		montant1.setFont(new Font("Calibri Light", Font.BOLD, 10));
+		montant1.setBounds(432, 51, 71, 37);
+		panel.add(montant1);
 		
 		Label label_2_1_1_1_1_1 = new Label("DH");
 		label_2_1_1_1_1_1.setForeground(Color.BLACK);
@@ -257,13 +382,13 @@ public class AjoutReservation extends JFrame {
 		label_2_1_1_2_1_3_1.setBounds(312, 134, 86, 37);
 		panel.add(label_2_1_1_2_1_3_1);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(441, 299, 130, 37);
-		panel.add(dateChooser);
+		JDateChooser date_reservation1 = new JDateChooser();
+		date_reservation1.setBounds(441, 299, 130, 37);
+		panel.add(date_reservation1);
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(441, 362, 130, 37);
-		panel.add(dateChooser_1);
+		
+		date_fin.setBounds(441, 362, 130, 37);
+		panel.add(date_fin);
 		
 		
 		Panel panel_2 = new Panel();
@@ -295,48 +420,25 @@ public class AjoutReservation extends JFrame {
 		panel_4.add(scrollPane);
 		
 		
-		Object[][] donnees = {
-                {"1", "1"},
-                {"2", "2"},
-                {"3", "3"},
-                {"4", "4"},
-                {"5", "5"},
-                {"6", "6"},
-                {"7", "7"},
-                {"8", "8"},
-                {"9", "9"},
-                {"10", "10"},
-                {"11", "11"},
-                {"12", "12"},
-                {"13", "13"},
-                {"14", "14"},
-                {"15", "15"},
-                {"16", "16"},
-                {"17", "17"},
-                {"18", "8"},
-                {"11", "11"},
-                {"12", "12"},
-                {"13", "13"},
-                {"14", "14"},
-                {"15", "15"},
-                {"16", "16"},
-                {"17", "17"},
-                {"18", "8"},
-                {"11", "11"},
-                {"12", "12"},
-                {"13", "13"},
-                {"14", "14"},
-                {"15", "15"},
-                {"16", "16"},
-                {"17", "17"},
-                {"18", "8"}
-        };
- 
-        String[] entetes = {"No", "RoomNo"};
+		
        
 		
-		table=new JTable(donnees, entetes);
+		table=new JTable();
 		scrollPane.setViewportView(table);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				 
+				int row = table.getSelectedRow();
+				String no = table.getModel().getValueAt(row, 0).toString();
+				String cout = table.getModel().getValueAt(row, 3).toString();
+				numRoom.setText(no);
+				montant1.setText(cout);
+				
+				 btnAfficher.setEnabled(true);
+				 
+			} 
+		});
 		
 		Label label_2_1 = new Label("Les chambres libres");
 		label_2_1.setForeground(Color.BLACK);
@@ -349,7 +451,6 @@ public class AjoutReservation extends JFrame {
 		label_2_1_1_2_1_3_1_1.setFont(new Font("Calibri Light", Font.BOLD, 10));
 		label_2_1_1_2_1_3_1_1.setBounds(621, 150, 51, 37);
 		contentPane.add(label_2_1_1_2_1_3_1_1);
-		String st = "hamza";
 		
 		
 		
