@@ -1,30 +1,25 @@
 package swing;
 
 
+<<<<<<< HEAD
 import javax.swing.JFrame;
 
 
 import javax.swing.JPanel;
+=======
+>>>>>>> branch 'main' of https://github.com/mohamederrahali34/ProjetIntegreS3.git
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
-import javax.swing.JButton;
 import java.awt.Panel;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Date;
 
 import javax.swing.*;
-
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -34,6 +29,8 @@ import javax.swing.border.Border;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.Label;
 import java.awt.SystemColor;
 import java.awt.Canvas;
@@ -56,8 +53,55 @@ public class Customer extends JFrame {
 	private JTable table;
 	private Statement stm ;
 	static int id_exemp ;
-	private JTextField textField;
-	private JTextField textField_1;
+	
+	
+	private static String nom;
+    private static String prenom;
+    private static String cin;
+    private static String adresse;
+    private static String tel;
+    private static String ville;
+    
+	
+	
+	
+	public String getCIN() {
+		return cin;
+	}
+
+
+
+
+	public String getNom() {
+		return nom;
+	}
+
+
+	
+
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+
+
+
+	public String getVille() {
+		return ville;
+	}
+
+
+	public String getAdresse() {
+		return adresse;
+	}
+
+
+
+	public String getTel() {
+		return tel;
+	}
+	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -73,10 +117,6 @@ public class Customer extends JFrame {
 		});
 	}
 
-	
-	public int getId_exemplaire() {
-		return id_exemp;
-	}
 
 	
 	public Customer() {
@@ -88,22 +128,22 @@ public class Customer extends JFrame {
 				
 				try {
 					 DbConnect conn=new DbConnect();
-					stm= conn.getConn().createStatement();
+					 stm= conn.getConn().createStatement();
 					 ResultSet rs;
 					 rs=stm.executeQuery("select * from client");  
 					 
-					table.setModel(DbUtils.resultSetToTableModel(rs)); 
+					 table.setModel(DbUtils.resultSetToTableModel(rs)); 
 						  
 					  
-					//step5 close the connection object  
-					stm.close();
-					conn.getConn().close();
+					 //step5 close the connection object  
+					 stm.close();
+					 conn.getConn().close();    
 				}catch(Exception e1){ JOptionPane.showMessageDialog(null, e1.getMessage());}
-			}
-		});
+			}                      
+		});                                                                                    
 		setType(Type.UTILITY);
 		setTitle("Customer");
-		
+															
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1102, 637);
 		contentPane = new JPanel();
@@ -111,13 +151,55 @@ public class Customer extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JButton btnAfficher = new JButton("Modifier");
+		JButton btnAfficher_1 = new JButton("Supprimer");
+		
+	   Cursor modify = btnAfficher.getCursor();
+       btnAfficher.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+       
+       Cursor sup = btnAfficher_1.getCursor();
+       btnAfficher_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		btnAfficher.setEnabled(false);
+		btnAfficher_1.setEnabled(false);
+		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				 
+				 btnAfficher.setEnabled(true);
+				 btnAfficher_1.setEnabled(true);
+			} 
+		});
+	
+		btnAfficher.setEnabled(false);
+		btnAfficher_1.setEnabled(false);
+
+		
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 208, 612);
 		panel.setBackground(new Color(244, 244, 244));
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnAfficher = new JButton("Modifier");
+		
+		btnAfficher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				int row = table.getSelectedRow();
+				cin = table.getModel().getValueAt(row, 0).toString();
+				nom = table.getModel().getValueAt(row, 1).toString();
+				prenom = table.getModel().getValueAt(row, 2).toString();
+			    tel = table.getModel().getValueAt(row, 3).toString();
+				ville = table.getModel().getValueAt(row, 4).toString();
+				adresse = table.getModel().getValueAt(row, 5).toString();
+				
+				new MAJ_Client().setVisible(true);
+				
+			}
+		});
+		btnAfficher.setEnabled(false);
 		btnAfficher.setBounds(10, 195, 174, 56);
 		
 		btnAfficher.setForeground(new Color(255, 255, 224));
@@ -125,7 +207,35 @@ public class Customer extends JFrame {
 		btnAfficher.setBackground(new Color(0, 176, 214));
 		panel.add(btnAfficher);
 		
-		JButton btnAfficher_1 = new JButton("Supprimer");
+		
+		btnAfficher_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try{
+					 
+		 			int row = table.getSelectedRow();
+					int cin = Integer.parseInt(table.getModel().getValueAt(row, 0).toString());
+				        
+				         DbConnect conn=new DbConnect() ;
+				        
+						 PreparedStatement stm=null;
+			           	stm=conn.getConn().prepareStatement("delete from client where CIN=? ");  
+						 stm.setInt(1,cin);
+						 
+				        stm.executeUpdate();
+
+				         JOptionPane.showMessageDialog(null, "Supprimer !");
+				         stm.close();
+						 conn.getConn().close();
+				        }  
+				    catch(Exception er)
+				    {
+				        JOptionPane.showMessageDialog(null,er);
+				    } 
+		 	}
+		 });
+				
+			
 		btnAfficher_1.setBounds(10, 262, 174, 54);
 		btnAfficher_1.setForeground(new Color(255, 255, 224));
 		btnAfficher_1.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -133,6 +243,10 @@ public class Customer extends JFrame {
 		panel.add(btnAfficher_1);
 		
 		JButton btnAfficher_2 = new JButton("Retour");
+		
+		Cursor retour = btnAfficher_2.getCursor();
+	       btnAfficher_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
 		btnAfficher_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
@@ -150,7 +264,8 @@ public class Customer extends JFrame {
 		lblNewLabel.setBounds(0, 427, 48, 48);
 		panel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Hamza Moukrim");
+		String admin = new Login().getNom() + " " + new Login().getPrenom();
+		JLabel lblNewLabel_1 = new JLabel(admin);
 		lblNewLabel_1.setFont(new Font("Modern No. 20", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(55, 427, 164, 71);
 		panel.add(lblNewLabel_1);
@@ -161,12 +276,20 @@ public class Customer extends JFrame {
 		panel.add(label);
 		
 		JButton btnOut = new JButton("Sign Out");
+		btnOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new Login().setVisible(true);
+			}
+			
+		});
 		btnOut.setBackground(new Color(244, 244, 244));
 		btnOut.setFont(new Font("Lucida Sans Typewriter", Font.PLAIN, 18));
 		btnOut.setBorder(null);
 		
 		Cursor cursor = btnOut.getCursor();
         btnOut.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
 		
 		btnOut.setHorizontalAlignment(SwingConstants.LEFT);
 		btnOut.setBounds(39, 509, 125, 48);
@@ -193,36 +316,10 @@ public class Customer extends JFrame {
 			}
 		});
 		find.setFont(new Font("Tahoma", Font.BOLD, 12));
-		find.setBounds(31, 81, 153, 37);
+		find.setBounds(360, 81, 257, 37);
 		find.setHorizontalAlignment(JTextField.CENTER);
 		panel_2.add(find);
 		find.setColumns(10);
-		
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField.setColumns(10);
-		textField.setBounds(253, 81, 153, 37);
-		panel_2.add(textField);
-		
-		textField_1 = new JTextField();
-		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(452, 81, 153, 37);
-		panel_2.add(textField_1);
-		
-		JButton search = new JButton("Search");
-		search.setForeground(new Color(255, 255, 224));
-		search.setFont(new Font("Tahoma", Font.BOLD, 12));
-		search.setBackground(new Color(113, 202, 216));
-		search.setBounds(697, 81, 130, 37);
-		
-		
-	
-		
-
-		panel_2.add(search);
 		
 		Label label_1 = new Label("");
 		label_1.setBackground(new Color(169, 169, 169));
@@ -235,7 +332,7 @@ public class Customer extends JFrame {
 		label_2.setBounds(336, 0, 238, 36);
 		panel_2.add(label_2);
 		
-		
+		btnAfficher.setEnabled(false);
 		JPanel panel_4 = new JPanel();
 		panel_4.setBounds(200, 151, 920, 461);
 		contentPane.add(panel_4);
